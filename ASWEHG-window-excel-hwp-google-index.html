@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASWEHG: All about Shortcut Window Excel Hwp Google 윈도우 액셀 한글 구글 단축키</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f9fc;--surface:#f0f2f7;--card:#ffffff;--border:#dde2ee;
+  --accent:#2563eb;--accent2:#d97706;--accent3:#059669;--accent4:#dc2626;
+  --text:#1a1e2e;--text2:#5a6380;--text3:#8a93a8;
+  --win:#2563eb;--xl:#059669;--hwp:#d97706;--gs:#dc2626;
+  --note:#7c3aed;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Noto Sans KR',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;min-height:100vh}
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(248,249,252,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;height:52px;gap:4px}
+.nav-logo{font-weight:900;font-size:15px;color:var(--text);letter-spacing:-0.5px;margin-right:16px;white-space:nowrap}
+.nav-logo span{color:var(--accent)}
+.tab-btn{padding:6px 14px;border-radius:6px;border:none;background:transparent;
+  color:var(--text2);cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:500;
+  transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab-btn:hover{background:var(--card);color:var(--text)}
+.tab-btn.active{background:var(--card);color:var(--text);font-weight:700}
+.tab-btn .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tab-btn[data-tab="win"] .dot{background:var(--win)}
+.tab-btn[data-tab="xl"] .dot{background:var(--xl)}
+.tab-btn[data-tab="hwp"] .dot{background:var(--hwp)}
+.tab-btn[data-tab="gs"] .dot{background:var(--gs)}
+.tab-btn[data-tab="subnote"] .dot{background:var(--note)}
+.tab-btn[data-tab="memo"] .dot{background:var(--text2)}
+.nav-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.search-wrap{position:relative}
+#globalSearch{background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:5px 10px 5px 30px;color:var(--text);font-family:var(--sans);font-size:12px;width:180px}
+#globalSearch:focus{outline:none;border-color:var(--accent)}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:12px}
+/* ── MAIN ── */
+main{max-width:1400px;margin:0 auto;padding:20px 16px 60px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+/* ── SECTION HEADER ── */
+.sec-header{display:flex;align-items:center;gap:10px;margin:28px 0 12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sec-title{font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.sec-badge{padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px}
+.badge-win{background:rgba(37,99,235,.1);color:var(--win)}
+.badge-xl{background:rgba(5,150,105,.1);color:var(--xl)}
+.badge-hwp{background:rgba(217,119,6,.1);color:var(--hwp)}
+.badge-gs{background:rgba(220,38,38,.1);color:var(--gs)}
+.badge-note{background:rgba(124,58,237,.1);color:var(--note)}
+/* ── CATEGORY ── */
+.cat-wrap{margin-bottom:20px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cat-head{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card);
+  cursor:pointer;user-select:none;border-bottom:1px solid var(--border)}
+.cat-head:hover{background:var(--surface)}
+.cat-icon{font-size:13px}
+.cat-name{font-weight:700;font-size:13px}
+.cat-count{margin-left:auto;font-size:10px;color:var(--text3);background:var(--surface);
+  padding:2px 8px;border-radius:10px}
+.chevron{margin-left:8px;color:var(--text3);transition:transform .2s;font-size:10px}
+.cat-wrap.collapsed .chevron{transform:rotate(-90deg)}
+.cat-body{overflow:hidden;transition:max-height .3s ease}
+.cat-wrap.collapsed .cat-body{max-height:0!important}
+/* ── SHORTCUT TABLE ── */
+table{width:100%;border-collapse:collapse}
+th{background:var(--surface);color:var(--text2);font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.8px;padding:8px 12px;text-align:left;
+  border-bottom:1px solid var(--border)}
+td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(0,0,0,.018)}
+.num{color:var(--text3);font-size:11px;width:30px;text-align:center}
+.shortcut{font-family:var(--mono);font-size:11px;color:#92400e;white-space:pre-line;
+  background:rgba(217,119,6,.08);padding:2px 6px;border-radius:4px;
+  border:1px solid rgba(217,119,6,.2);display:inline-block;line-height:1.6}
+.desc{color:var(--text);font-size:12px;white-space:pre-line}
+.note-cell{color:var(--text3);font-size:11px}
+.important{background:rgba(217,119,6,.05)}
+.important .shortcut{background:rgba(217,119,6,.15);border-color:rgba(217,119,6,.4)}
+.star{color:var(--accent2);margin-left:4px;font-size:10px}
+/* comparison table */
+.comp-win{color:var(--xl);font-family:var(--mono);font-size:11px}
+.comp-gs{color:var(--accent);font-family:var(--mono);font-size:11px}
+.comp-none{color:var(--text3);font-style:italic;font-size:11px}
+/* ── SUB-NOTE ── */
+.subnote-wrap{max-width:900px;margin:0 auto}
+.subnote-toolbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.input-group{display:flex;gap:8px;flex:1;min-width:260px}
+.sn-input{flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:9px 14px;color:var(--text);font-family:var(--sans);font-size:13px}
+.sn-input:focus{outline:none;border-color:var(--note)}
+.btn-add{padding:9px 18px;background:var(--note);color:#fff;border:none;border-radius:8px;
+  font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-add:hover{opacity:.85}
+.filter-row{display:flex;gap:6px}
+.filter-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;
+  color:var(--text2);font-family:var(--sans);font-size:11px;cursor:pointer}
+.filter-btn.active{background:var(--card);color:var(--text);border-color:var(--note)}
+.sn-stats{margin-left:auto;font-size:11px;color:var(--text3)}
+.sn-list{display:flex;flex-direction:column;gap:8px}
+.sn-item{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;display:flex;align-items:flex-start;gap:12px;transition:all .2s}
+.sn-item.mastered{opacity:.4}
+.sn-item.mastered .sn-text{text-decoration:line-through;color:var(--text3)}
+.sn-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;margin-top:1px}
+.sn-check:hover{border-color:var(--note)}
+.sn-check.checked{background:var(--note);border-color:var(--note);color:#fff}
+.sn-content{flex:1}
+.sn-text{font-size:13px;line-height:1.5;margin-bottom:4px}
+.sn-yt-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#dc2626;
+  text-decoration:none;margin-top:4px}
+.sn-yt-link:hover{text-decoration:underline}
+.sn-del{color:var(--text3);background:transparent;border:none;cursor:pointer;
+  font-size:16px;padding:0 4px;line-height:1;flex-shrink:0}
+.sn-del:hover{color:var(--accent4)}
+.sn-meta{font-size:10px;color:var(--text3);margin-top:4px}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-state .icon{font-size:40px;margin-bottom:12px}
+/* ── MEMO ── */
+.memo-wrap{max-width:900px;margin:0 auto}
+.memo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.memo-grid{grid-template-columns:1fr}}
+.memo-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.memo-card-title{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;
+  text-transform:uppercase;letter-spacing:.6px}
+.memo-textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:10px;color:var(--text);font-family:var(--sans);font-size:13px;resize:vertical;
+  min-height:160px;line-height:1.6}
+.memo-textarea:focus{outline:none;border-color:var(--accent)}
+.yt-input-row{display:flex;gap:8px;margin-bottom:10px}
+.yt-url-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:8px 10px;color:var(--text);font-family:var(--sans);font-size:12px}
+.yt-url-input:focus{outline:none;border-color:#dc2626}
+.yt-title-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:8px 10px;color:var(--text);font-family:var(--sans);font-size:12px}
+.btn-yt-add{padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:8px;
+  font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-yt-add:hover{opacity:.85}
+.yt-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto}
+.yt-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:10px 12px;display:flex;align-items:center;gap:10px}
+.yt-thumb{width:80px;height:45px;border-radius:4px;object-fit:cover;flex-shrink:0;background:#ccc}
+.yt-info{flex:1;min-width:0}
+.yt-title{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yt-url-small{font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yt-open{color:#dc2626;font-size:11px;text-decoration:none;white-space:nowrap}
+.yt-del{color:var(--text3);background:transparent;border:none;cursor:pointer;font-size:14px;padding:0 2px}
+.yt-del:hover{color:var(--accent4)}
+/* ── SEARCH HIGHLIGHT ── */
+.hl{background:rgba(217,119,6,.25);border-radius:2px;padding:0 1px}
+/* ── QUICK JUMP ── */
+.section-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.jump-btn{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;
+  color:var(--text2);font-family:var(--sans);font-size:11px;cursor:pointer;transition:all .15s}
+.jump-btn:hover{background:var(--card);color:var(--text);border-color:var(--accent)}
+/* ── scrollbar ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:10px 18px;font-size:12px;opacity:0;transform:translateY(10px);
+  transition:all .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">⌨️ <span>ShortKey</span> DB</div>
+  <button class="tab-btn active" data-tab="win"><span class="dot"></span>윈도우</button>
+  <button class="tab-btn" data-tab="xl"><span class="dot"></span>엑셀</button>
+  <button class="tab-btn" data-tab="hwp"><span class="dot"></span>한글HWP</button>
+  <button class="tab-btn" data-tab="gs"><span class="dot"></span>구글시트</button>
+  <button class="tab-btn" data-tab="subnote"><span class="dot"></span>서브노트</button>
+  <button class="tab-btn" data-tab="memo"><span class="dot"></span>메모·링크</button>
+  <div class="nav-right">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="globalSearch" type="text" placeholder="단축키 검색...">
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════ 윈도우 ════════ -->
+<div class="tab-panel active" id="tab-win">
+  <div class="sec-header">
+    <div class="sec-title">윈도우 단축키</div>
+    <span class="sec-badge badge-win">WINDOWS</span>
+  </div>
+  <div class="section-nav" id="sn-win"></div>
+  <div id="cats-win"></div>
+</div>
+
+<!-- ════════ 엑셀 ════════ -->
+<div class="tab-panel" id="tab-xl">
+  <div class="sec-header">
+    <div class="sec-title">엑셀 단축키</div>
+    <span class="sec-badge badge-xl">EXCEL</span>
+  </div>
+  <div class="section-nav" id="sn-xl"></div>
+  <div id="cats-xl"></div>
+</div>
+
+<!-- ════════ 한글HWP ════════ -->
+<div class="tab-panel" id="tab-hwp">
+  <div class="sec-header">
+    <div class="sec-title">한글(HWP) 단축키</div>
+    <span class="sec-badge badge-hwp">한글 HWP</span>
+  </div>
+  <div class="section-nav" id="sn-hwp"></div>
+  <div id="cats-hwp"></div>
+</div>
+
+<!-- ════════ 구글시트 ════════ -->
+<div class="tab-panel" id="tab-gs">
+  <div class="sec-header">
+    <div class="sec-title">구글 스프레드시트 vs 엑셀 비교</div>
+    <span class="sec-badge badge-gs">GOOGLE SHEETS</span>
+  </div>
+  <div class="section-nav" id="sn-gs"></div>
+  <div id="cats-gs"></div>
+</div>
+
+<!-- ════════ 서브노트 ════════ -->
+<div class="tab-panel" id="tab-subnote">
+  <div class="sec-header">
+    <div class="sec-title">서브노트</div>
+    <span class="sec-badge badge-note">SUB NOTE</span>
+  </div>
+  <div class="subnote-wrap">
+    <div class="subnote-toolbar">
+      <div class="input-group">
+        <input class="sn-input" id="snText" placeholder="숙지해야 할 단축키나 내용 입력...">
+        <input class="sn-input" id="snYt" placeholder="유튜브 URL (선택)" style="max-width:220px">
+        <button class="btn-add" onclick="addSubnote()">추가 +</button>
+      </div>
+    </div>
+    <div class="subnote-toolbar" style="margin-top:-8px;margin-bottom:16px">
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="pending" onclick="setFilter('pending',this)">미숙지</button>
+        <button class="filter-btn" data-filter="all" onclick="setFilter('all',this)">전체</button>
+        <button class="filter-btn" data-filter="mastered" onclick="setFilter('mastered',this)">숙지완료</button>
+      </div>
+      <span class="sn-stats" id="snStats"></span>
+    </div>
+    <div class="sn-list" id="snList"></div>
+  </div>
+</div>
+
+<!-- ════════ 메모·링크 ════════ -->
+<div class="tab-panel" id="tab-memo">
+  <div class="sec-header">
+    <div class="sec-title">메모 &amp; 유튜브 링크</div>
+    <span class="sec-badge" style="background:rgba(136,146,168,.15);color:var(--text2)">MEMO</span>
+  </div>
+  <div class="memo-wrap">
+    <div class="memo-grid">
+      <div class="memo-card" style="grid-column:1/-1">
+        <div class="memo-card-title">📝 자유 메모</div>
+        <textarea class="memo-textarea" id="memoText" placeholder="자유롭게 메모하세요. 단축키 관련 팁, 기억할 것들, 업무 노트 등..." rows="8" oninput="saveMemo()"></textarea>
+      </div>
+      <div class="memo-card" style="grid-column:1/-1">
+        <div class="memo-card-title">▶️ 유튜브 링크 모음</div>
+        <div class="yt-input-row">
+          <input class="yt-url-input" id="ytUrl" placeholder="유튜브 URL 붙여넣기...">
+          <input class="yt-title-input" id="ytTitle" placeholder="제목 (선택)">
+          <button class="btn-yt-add" onclick="addYtLink()">추가</button>
+        </div>
+        <div class="yt-list" id="ytList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+const DATA = {
+  win: [
+    { id:'win-tip', icon:'⭐', name:'상급 꿀팁', items:[
+      {k:'Ctrl+W', d:'빠르게 창 닫기'},
+      {k:'Win+E', d:'윈도우 탐색기 창 열기'},
+      {k:'Win+상하좌우 방향키', d:'창 분할 (화면 절반 배치)', imp:true},
+      {k:'Win+D', d:'바탕화면 보기 / 복원 (토글)', imp:true},
+      {k:'Win+M / Win+Shift+M', d:'창 전체 최소화 / 복원'},
+      {k:'Ctrl+Win+D', d:'가상 데스크톱 새로 만들기'},
+      {k:'Ctrl+Win+← / →', d:'가상 데스크톱 이동'},
+      {k:'Ctrl+Win+F4', d:'현재 가상 데스크톱 삭제'},
+      {k:'Win+Tab', d:'가상 데스크톱 전체보기 / 타임라인', imp:true},
+      {k:'Win+숫자(1~9)', d:'작업표시줄 순차 열기'},
+      {k:'Win+T', d:'작업표시줄 창 순서대로 띄우기'},
+      {k:'Win+Shift+S', d:'편집형 스크린샷 (영역 지정)', imp:true},
+      {k:'Ctrl+Shift+방향키', d:'단어 단위로 블록 지정'},
+      {k:'Win+L', d:'화면 잠금', imp:true},
+      {k:'Ctrl+L', d:'카카오톡 잠금'},
+      {k:'Shift+Enter', d:'PC 카카오톡 줄 바꿈'},
+      {k:'Win+I', d:'설정 열기'},
+      {k:'Win+Q / Win+S', d:'검색 열기'},
+    ]},
+    { id:'win-ctrl', icon:'Ⓒ', name:'Ctrl & Window 계열', items:[
+      {k:'Ctrl+A', d:'전체 선택'},
+      {k:'Ctrl+C / X / V', d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Z / Y', d:'실행취소 / 다시실행'},
+      {k:'Ctrl+B', d:'볼드체'},
+      {k:'Ctrl+F', d:'찾기'},
+      {k:'Ctrl+H', d:'방문기록 / 찾아바꾸기'},
+      {k:'Ctrl+N', d:'새 창 또는 새 탭'},
+      {k:'Ctrl+O', d:'열기'},
+      {k:'Ctrl+P', d:'인쇄'},
+      {k:'Ctrl+S', d:'저장'},
+      {k:'Ctrl+W', d:'탭 또는 창 닫기'},
+      {k:'Ctrl+Tab', d:'오른쪽 탭 이동 ★', imp:true},
+      {k:'Ctrl+Shift+Tab', d:'왼쪽 탭 이동 ★', imp:true},
+      {k:'Ctrl+1~9', d:'해당 번호 탭 이동 ★', imp:true},
+      {k:'Ctrl+0', d:'마지막 실행 탭 선택 ★', imp:true},
+      {k:'Ctrl+방향키', d:'단어 단위로 이동'},
+      {k:'Ctrl+Backspace', d:'단어 단위 삭제'},
+      {k:'Ctrl+Delete', d:'오른쪽 단어 단위 삭제'},
+      {k:'Ctrl+Pg up / Pg Dn', d:'탭 이동 ★', imp:true},
+      {k:'Ctrl+R', d:'새로고침'},
+      {k:'Ctrl+T', d:'새 탭'},
+      {k:'Ctrl+E', d:'주소창'},
+      {k:'Ctrl+L', d:'주소창 입력'},
+      {k:'Ctrl+K', d:'주소창 Google 검색으로 입력'},
+      {k:'Windows', d:'시작 메뉴 호출'},
+      {k:'Windows+A', d:'알림 센터 호출'},
+      {k:'Windows+B', d:'작업표시줄 숨겨진 탭', imp:true},
+      {k:'Windows+C', d:'Copilot 열기', imp:true},
+      {k:'Windows+D', d:'바탕화면 보기/돌아가기', imp:true},
+      {k:'Windows+E', d:'윈도우 탐색기'},
+      {k:'Windows+L', d:'화면 잠금'},
+      {k:'Windows+M', d:'창 최소화'},
+      {k:'Windows+Q', d:'실행창'},
+      {k:'Windows+R', d:'작업표시줄 포커싱'},
+      {k:'Windows+S', d:'점검성 센터 실행'},
+      {k:'Windows+T', d:'클립보드 창 실행'},
+      {k:'Windows+↑', d:'전체화면'},
+      {k:'Windows+↓', d:'최소화'},
+      {k:'Windows+←/→', d:'창 왼쪽/오른쪽 절반 배치'},
+      {k:'Windows+Shift+방향키', d:'모니터 이동/크기 조절'},
+      {k:'Windows+Tab', d:'에어로 탭 / 타임라인'},
+      {k:'Windows+숫자', d:'작업 표시줄 실행'},
+      {k:'Window+Ctrl (열려 있는 창)', d:'열려 있는 창 이동', imp:true},
+      {k:'Window+Alt+D', d:'달력과 시계 표시'},
+      {k:'Space', d:'화면 한 페이지씩 내림'},
+      {k:'Ctrl+Win+Alt+Shift+X', d:'Excel 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+W', d:'Microsoft Word 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+P', d:'PowerPoint 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+O', d:'Outlook 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+N', d:'OneNote 바로 열기'},
+    ]},
+    { id:'win-alt', icon:'⎇', name:'Alt · Shift · 기타 계열', items:[
+      {k:'Alt+Tab', d:'작업 전환 (창 이동)', imp:true},
+      {k:'Alt+F4', d:'현재 창 종료 / 시스템 종료창'},
+      {k:'Alt+방향키', d:'이전 페이지 / 다음 페이지'},
+      {k:'Alt+D', d:'주소창 이동 (주소창 있는 창)'},
+      {k:'Alt+prt sc', d:'현재 창 스크린샷'},
+      {k:'Alt+2', d:'새 폴더 (탐색기 환경)', imp:true},
+      {k:'Alt+1', d:'속성창 열기'},
+      {k:'Alt+S', d:'저장'},
+      {k:'Alt+Space', d:'우클릭 메뉴 호출'},
+      {k:'Alt+Shift', d:'키보드 입력 언어 전환'},
+      {k:'Shift+Del', d:'완전 삭제'},
+      {k:'Shift+Prt Sc', d:'화면 전체 스크린샷'},
+      {k:'Shift+방향키', d:'바로 위/아래 줄 블록 지정'},
+      {k:'Shift+Alt', d:'언어 전환'},
+      {k:'Shift+Home / End', d:'해당 줄 블록 지정'},
+      {k:'Shift+Pg up / Pg Dn', d:'페이지 위/아래 블록 지정'},
+      {k:'Shift+Insert', d:'붙여넣기'},
+      {k:'F1', d:'프로그램 도움말'},
+      {k:'F2', d:'문서 참목 선택 후 이름 바꾸기'},
+      {k:'Win+V', d:'클립보드 기록 보기', imp:true},
+      {k:'Win+Shift+R', d:'파워 새로고침'},
+    ]},
+  ],
+
+  xl: [
+    { id:'xl-basic', icon:'⚡', name:'기본 조작', items:[
+      {k:'Ctrl+N', d:'새 파일'},
+      {k:'Ctrl+O / Ctrl+F12', d:'파일 열기'},
+      {k:'Ctrl+S', d:'저장'},
+      {k:'Alt+S', d:'다른 이름으로 저장'},
+      {k:'Ctrl+P', d:'인쇄'},
+      {k:'Ctrl+Z / Ctrl+Y', d:'실행취소 / 다시실행'},
+      {k:'Ctrl+C / X / V', d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Alt+V', d:'선택하여 붙여넣기', imp:true},
+      {k:'Ctrl+B / I / U', d:'굵게 / 기울임 / 밑줄'},
+      {k:'Ctrl+F / H', d:'찾기 / 찾아바꾸기'},
+      {k:'Ctrl+G', d:'이동 창 열기'},
+      {k:'Ctrl+K', d:'하이퍼링크 삽입'},
+      {k:'Ctrl+T', d:'표(Table) 지정 (블록 후)', imp:true},
+      {k:'Ctrl+; / Ctrl+Shift+;', d:'현재 날짜 / 현재 시간 입력'},
+      {k:'Ctrl+E', d:'Flash Fill (빠른 채우기) ★', imp:true},
+      {k:'Ctrl+Shift+L', d:'필터 설정/해제', imp:true},
+      {k:'Ctrl+Shift+\'+\'', d:'행과 열 삽입'},
+      {k:'Ctrl+\'-\'', d:'행 또는 열 내용 삭제'},
+      {k:'Delete', d:'셀 내용 삭제'},
+      {k:'Ctrl+방향키', d:'셀 끝으로 이동', imp:true},
+      {k:'Ctrl+Shift+방향키', d:'셀 전체 범위 선택', imp:true},
+      {k:'Shift+방향키', d:'셀 선택 + 이동'},
+      {k:'Ctrl+클릭', d:'비연속 셀 중첩 선택'},
+      {k:'Ctrl+D', d:'아래로 채우기'},
+      {k:'Ctrl+R', d:'오른쪽으로 채우기'},
+      {k:'Ctrl+꼭지점 drag', d:'연속 데이터 채우기'},
+      {k:'Ctrl+워크시트탭 드래그', d:'시트 복사 (원하는 탭 위치로)'},
+      {k:'Alt+H+U+S', d:'단순 합산 (블록 후)', imp:true},
+      {k:'Alt+W+F+F', d:'틀 고정 (행+열)', imp:true},
+      {k:'Alt+F11', d:'VBA 편집기 실행'},
+      {k:'Ctrl+Alt+F9', d:'모든 워크시트 강제 재계산'},
+      {k:'Ctrl+Tab', d:'다음 통합문서 이동'},
+      {k:'Ctrl+1', d:'셀 서식 창 열기', imp:true},
+      {k:'block→Ctrl+F', d:'찾아 지우기'},
+      {k:'block→Ctrl+H', d:'찾아 바꾸기'},
+    ]},
+    { id:'xl-fmt', icon:'🎨', name:'셀 서식 변경', items:[
+      {k:'Ctrl+Shift+1', d:'통화 형식 (콤마, 단위 없음)'},
+      {k:'Ctrl+Shift+2', d:'시간 형식'},
+      {k:'Ctrl+Shift+3', d:'날짜 형식'},
+      {k:'Ctrl+Shift+4', d:'통화 형식 (₩ 표시 있음)'},
+      {k:'Ctrl+Shift+5', d:'% 형식'},
+      {k:'Ctrl+Shift+6', d:'지수 형식'},
+      {k:'Ctrl+Shift+7', d:'셀 바깥 테두리 적용', imp:true},
+      {k:'Ctrl+Shift+\'-\'', d:'안쪽 선 지우기'},
+      {k:'Alt+7+O / P / L / R', d:'테두리 아래 / 위 / 왼쪽 / 오른쪽'},
+      {k:'Alt+7+N / A', d:'테두리 없음 / 모든 선'},
+      {k:'Alt+7+S', d:'바깥 테두리 (=Ctrl+Shift+7)'},
+      {k:'Alt+7+T', d:'굵은 바깥 테두리'},
+      {k:'Alt+7+B', d:'아래 이중 테두리'},
+      {k:'Alt+H+K', d:'쉼표 넣고 우측 정렬'},
+      {k:'Ctrl+6', d:'삽입 기능 비활성화 해제'},
+    ]},
+    { id:'xl-paste', icon:'📋', name:'선택하여 붙여넣기 (Ctrl+Alt+V 후)', items:[
+      {k:'V', d:'값만 복붙 ★', imp:true},
+      {k:'F', d:'수식만'},
+      {k:'O', d:'수식 및 숫자서식'},
+      {k:'K', d:'원본 서식 유지'},
+      {k:'B', d:'테두리 지우기'},
+      {k:'W', d:'열 너비 유지'},
+      {k:'T', d:'행열 바꿈'},
+      {k:'A', d:'값과 숫자서식'},
+      {k:'E', d:'값과 원본서식'},
+      {k:'R', d:'서식만'},
+      {k:'N', d:'연결 붙이기'},
+      {k:'U', d:'투명 그림으로 바꾸기'},
+      {k:'I', d:'연결 그림으로 바꾸기'},
+    ]},
+    { id:'xl-fkey', icon:'⌨️', name:'함수키 F1~F12', items:[
+      {k:'F1', d:'도움말 실행  |  Alt: 차트 만들기  |  Ctrl: 리본 보이기/숨기기'},
+      {k:'F2', d:'셀 내용 편집  |  Alt: 다른이름으로 저장  |  Shift: 메모 삽입/편집', imp:true},
+      {k:'F3', d:'사용자 지정 범위 목록  |  Ctrl: 이름관리자  |  Shift: 함수마법사'},
+      {k:'F4', d:'셀 참조 변경 (절대/상대) ★  |  Alt: 통합문서 종료', imp:true},
+      {k:'F5', d:'이동 창 실행  |  Shift: 찾기 및 바꾸기'},
+      {k:'F6', d:'리본·시트·상태창 전환  |  Ctrl: 이전 통합문서 이동'},
+      {k:'F7', d:'맞춤법 검사  |  Shift: 동의어사전'},
+      {k:'F8', d:'선택영역 확장 모드  |  Alt: 매크로 선택창'},
+      {k:'F9', d:'현재 통합문서 수식 재계산  |  Ctrl+Alt: 모든 통합문서 재계산', imp:true},
+      {k:'F10', d:'리본 단축키 보이기  |  Alt: 개체 선택창  |  Shift: 마우스 우클릭'},
+      {k:'F11', d:'차트시트 생성  |  Alt: VBA 편집기  |  Shift: 새 시트 추가'},
+      {k:'F12', d:'다른이름으로 저장  |  Ctrl: 파일 열기  |  Shift: 파일 저장'},
+    ]},
+    { id:'xl-func', icon:'🔢', name:'날짜·수식·함수 팁', items:[
+      {k:'ROW()-ROW(표1[[#머리글],[열1]])', d:'자동 번호 넣기 (표 안에서)', imp:true},
+      {k:'WEEKDAY(날짜셀)', d:'날짜 요일을 숫자로 변환 (1=일, 7=토)'},
+      {k:'TEXT(날짜셀,"dddd")', d:'날짜를 지정 형식 텍스트로 변환'},
+      {k:'DAY(날짜셀)', d:'날짜에서 일(day)만 추출'},
+      {k:'EDATE(날짜셀, 개월수)', d:'날짜로부터 N개월 후 날짜'},
+      {k:'REPLACE(셀,시작,개수,"대체")', d:'특정 위치 철자 대체'},
+      {k:'REPT("|",셀)', d:'변칙 막대 그래프 (폰트: Playbill)'},
+      {k:'=시트명!셀주소', d:'다른 시트 셀 값 참조', imp:true},
+      {k:'Ctrl+Q→O→선택', d:'빠른 분석: 자동 sum / 누적합계'},
+      {k:'CTRL+`(백틱)', d:'수식 전체 표시 모드 토글'},
+      {k:'검토 > 모든 노트 표시', d:'메모(주석) 일괄 표시/숨기기'},
+      {k:'B4/(GCD(B4,C4))&":"&C4/GCD(B4,C4)', d:'비율 표현 수식 (예: 16:9)'},
+    ]},
+  ],
+
+  hwp: [
+    { id:'hwp-file', icon:'📁', name:'파일 관리', items:[
+      {k:'Ctrl+N', d:'새 문서'},
+      {k:'Ctrl+O', d:'문서 열기'},
+      {k:'Alt+O', d:'불러오기'},
+      {k:'Ctrl+S', d:'저장'},
+      {k:'Alt+S', d:'다른 이름으로 저장'},
+      {k:'Ctrl+W / Alt+F4', d:'닫기 / 프로그램 종료'},
+      {k:'Ctrl+P', d:'인쇄'},
+      {k:'Ctrl+F12', d:'PDF로 저장', imp:true},
+    ]},
+    { id:'hwp-edit', icon:'✏️', name:'편집 기본', items:[
+      {k:'Ctrl+Z / Ctrl+Y', d:'실행취소 / 다시실행'},
+      {k:'Ctrl+A', d:'전체 선택'},
+      {k:'Ctrl+C / X / V', d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Alt+V', d:'골라 붙이기'},
+      {k:'Ctrl+F / H', d:'찾기 / 찾아 바꾸기'},
+      {k:'F2', d:'찾기 (이전 검색어 재사용)'},
+      {k:'Delete / Backspace', d:'오른쪽 / 왼쪽 한 글자 삭제'},
+      {k:'Ctrl+Delete / Backspace', d:'오른쪽 / 왼쪽 단어 삭제'},
+      {k:'Ctrl+Enter', d:'쪽 나누기 (강제 페이지)', imp:true},
+      {k:'Shift+Enter', d:'줄 바꿈 (강제 줄 나누기)'},
+      {k:'Insert', d:'삽입/수정 모드 전환'},
+      {k:'F4', d:'최근 실행 반복 ★', imp:true},
+    ]},
+    { id:'hwp-nav', icon:'🧭', name:'이동 · 선택', items:[
+      {k:'Ctrl+Home / End', d:'문서 처음 / 끝으로 이동', imp:true},
+      {k:'Ctrl+방향키', d:'단어/단락 단위 이동'},
+      {k:'Shift+방향키', d:'글자 단위 블록 선택'},
+      {k:'Shift+Ctrl+방향키', d:'단어 단위 블록 선택', imp:true},
+      {k:'Shift+Home / End', d:'현재 줄 처음/끝까지 블록'},
+      {k:'Shift+Ctrl+Home / End', d:'문서 처음/끝까지 블록'},
+      {k:'Pg Up / Pg Dn', d:'화면 단위 이동'},
+      {k:'F5', d:'이동 창 열기 (쪽 이동 등)'},
+      {k:'Tab / Shift+Tab', d:'표 다음 셀 / 이전 셀 이동'},
+      {k:'Ctrl+←→ (표 안)', d:'표 셀 이동'},
+    ]},
+    { id:'hwp-char', icon:'🔤', name:'글자 서식', items:[
+      {k:'Ctrl+B / I / U', d:'굵게 / 기울임 / 밑줄'},
+      {k:'Ctrl+D', d:'글자 모양 창 열기', imp:true},
+      {k:'Ctrl+Shift+F', d:'글꼴 변경 (목록)'},
+      {k:'Ctrl+Shift+P', d:'글자 크기 변경'},
+      {k:'Ctrl+Shift+T / R', d:'글자 크기 크게 / 작게'},
+      {k:'Shift+F3', d:'대/소문자 변환 (영문)'},
+      {k:'Ctrl+Shift+C', d:'글자 색 지정'},
+      {k:'Ctrl+Shift+H', d:'형광펜 색 지정'},
+      {k:'Alt+L', d:'위첨자'},
+      {k:'Alt+Shift+L', d:'아래첨자'},
+      {k:'Ctrl+Shift+X', d:'서식 제거'},
+      {k:'Alt+Shift+E', d:'외곽선'},
+      {k:'Ctrl+Shift+U', d:'밑줄 없애기'},
+    ]},
+    { id:'hwp-para', icon:'¶', name:'문단 서식', items:[
+      {k:'Ctrl+L / E / R / J', d:'왼쪽 / 가운데 / 오른쪽 / 양쪽 정렬', imp:true},
+      {k:'Ctrl+Shift+W', d:'배분 정렬'},
+      {k:'Alt+T', d:'문단 모양 창 열기'},
+      {k:'Ctrl+1~6', d:'스타일 적용 (1=본문 ~ 6=제목1)'},
+      {k:'F6', d:'스타일 목록 적용'},
+      {k:'Tab (문단 앞)', d:'들여쓰기'},
+      {k:'Shift+Tab (문단 앞)', d:'내어쓰기'},
+    ]},
+    { id:'hwp-ins', icon:'➕', name:'삽입 · 개체', items:[
+      {k:'Ctrl+N, T', d:'표 삽입', imp:true},
+      {k:'Ctrl+N, I', d:'그림 삽입'},
+      {k:'Ctrl+N, B', d:'글상자 삽입'},
+      {k:'Ctrl+N, L', d:'선 삽입'},
+      {k:'Ctrl+K, H', d:'하이퍼링크 삽입'},
+      {k:'Ctrl+K, B', d:'책갈피 삽입'},
+      {k:'Ctrl+K, C', d:'상호 참조'},
+      {k:'Ctrl+N, E', d:'수식 편집기 삽입'},
+      {k:'Ctrl+F10', d:'특수 문자 입력', imp:true},
+      {k:'F9', d:'필드 업데이트 / 입력'},
+      {k:'Ctrl+F9', d:'각주 삽입'},
+      {k:'Ctrl+Shift+F9', d:'미주 삽입'},
+    ]},
+    { id:'hwp-etc', icon:'🔧', name:'기타 기능', items:[
+      {k:'F7', d:'맞춤법 검사'},
+      {k:'Shift+F7', d:'유사어/반의어 사전'},
+      {k:'Alt+Shift+P', d:'쪽 번호 매기기', imp:true},
+      {k:'Alt+P', d:'머리말 편집'},
+      {k:'Alt+Shift+PgDn', d:'꼬리말 편집'},
+      {k:'Ctrl+Alt+C', d:'차례(목차) 만들기', imp:true},
+      {k:'Alt+F8', d:'매크로 편집기'},
+      {k:'Ctrl+Q', d:'매크로 실행'},
+      {k:'Ctrl+Alt+U', d:'쪽 번호 지우기'},
+    ]},
+  ],
+
+  gs: [
+    { id:'gs-same', icon:'✅', name:'엑셀과 동일한 단축키', items:[
+      {k:'Ctrl+C / X / V', d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Z / Y', d:'실행취소 / 다시실행'},
+      {k:'Ctrl+A', d:'전체 선택'},
+      {k:'Ctrl+S', d:'저장 (구글은 자동저장)'},
+      {k:'Ctrl+P', d:'인쇄'},
+      {k:'Ctrl+O', d:'열기'},
+      {k:'Ctrl+N', d:'새 파일'},
+      {k:'Ctrl+F / H', d:'찾기 / 찾아바꾸기'},
+      {k:'Ctrl+B / I / U', d:'굵게 / 기울임 / 밑줄'},
+      {k:'Ctrl+방향키', d:'셀 끝으로 이동'},
+      {k:'Shift+방향키', d:'범위 선택'},
+      {k:'Ctrl+D', d:'아래로 채우기'},
+      {k:'Ctrl+R', d:'오른쪽으로 채우기'},
+      {k:'Ctrl+K', d:'하이퍼링크 삽입'},
+      {k:'Shift+F11', d:'새 시트 삽입'},
+      {k:'Ctrl+;', d:'현재 날짜 입력'},
+      {k:'Ctrl+Shift+;', d:'현재 시간 입력'},
+      {k:'F4', d:'절대/상대 참조 전환'},
+      {k:'Ctrl+Enter', d:'범위 채우기'},
+      {k:'Ctrl+Home / End', d:'시트 처음 / 끝으로 이동'},
+      {k:'Ctrl+Shift+7', d:'바깥쪽 테두리 적용 (구글: Alt+Shift+7)'},
+      {k:'Ctrl+Shift+Enter', d:'배열 수식 입력'},
+    ]},
+    { id:'gs-diff', icon:'🔄', name:'기능 같지만 단축키 다름 ★', items:[
+      {k:'값만 붙여넣기', d:'엑셀: Ctrl+Alt+V → V\n구글: Ctrl+Shift+V', imp:true},
+      {k:'취소선', d:'엑셀: Ctrl+5\n구글: Alt+Shift+5'},
+      {k:'댓글/메모 삽입', d:'엑셀: Shift+F2 (메모), Alt+A+M (댓글)\n구글: Ctrl+Alt+M'},
+      {k:'가운데 맞춤', d:'엑셀: Ctrl+E (Flash Fill과 혼용 주의)\n구글: Ctrl+Shift+E', imp:true},
+      {k:'오른쪽 맞춤', d:'엑셀: 메뉴 사용\n구글: Ctrl+Shift+R'},
+      {k:'왼쪽 맞춤', d:'엑셀: 메뉴 사용\n구글: Ctrl+Shift+L'},
+      {k:'필터 설정/해제', d:'엑셀: Ctrl+Shift+L\n구글: 없음 (메뉴 이용)'},
+      {k:'바깥쪽 테두리', d:'엑셀: Ctrl+Shift+7\n구글: Alt+Shift+7'},
+      {k:'수식 전체 표시', d:'엑셀: Ctrl+` (백틱)\n구글: Ctrl+~'},
+      {k:'다음 시트 이동', d:'엑셀: Ctrl+Pg Dn\n구글: Alt+↓', imp:true},
+      {k:'이전 시트 이동', d:'엑셀: Ctrl+Pg Up\n구글: Alt+↑'},
+      {k:'행 숨기기', d:'엑셀: Ctrl+9\n구글: Ctrl+Alt+9'},
+      {k:'열 숨기기', d:'엑셀: Ctrl+0\n구글: Ctrl+Alt+0'},
+      {k:'열 선택', d:'엑셀: 열 머리글 클릭\n구글: Ctrl+스페이스바'},
+      {k:'행 선택', d:'엑셀: 행 머리글 클릭\n구글: Shift+스페이스바'},
+    ]},
+    { id:'gs-xlonly', icon:'🟢', name:'엑셀에서만 가능 (구글 없음)', items:[
+      {k:'Ctrl+E', d:'Flash Fill (빠른 채우기) — 패턴 인식 자동완성', imp:true},
+      {k:'Ctrl+1', d:'셀 서식 창 열기'},
+      {k:'Alt+F11', d:'VBA 편집기 (구글은 Apps Script)'},
+      {k:'Ctrl+Tab', d:'다음 통합문서 이동'},
+      {k:'Ctrl+Alt+F9', d:'모든 수식 강제 재계산'},
+      {k:'Alt+W+F+F', d:'틀 고정 (행+열)'},
+      {k:'Ctrl+Shift+F3', d:'새 이름 정의'},
+      {k:'Ctrl+F3', d:'수식 탭 이름 관리자'},
+      {k:'F5 / Ctrl+G', d:'이동 창 (특수 셀 선택 포함)'},
+      {k:'Ctrl+Alt+V', d:'선택하여 붙이기 창 (다양한 옵션)'},
+      {k:'Alt+F8', d:'매크로 대화상자'},
+      {k:'F9', d:'현재 통합문서 수식 재계산'},
+      {k:'Alt+F1', d:'차트 만들기 (선택영역 기반)'},
+    ]},
+    { id:'gs-gsonly', icon:'🔵', name:'구글 스프레드시트에서만 가능 (엑셀 없음)', items:[
+      {k:'Ctrl+Alt+M', d:'댓글 삽입/수정', imp:true},
+      {k:'Ctrl+Alt+Shift+H', d:'업데이트 기록 열기 (공동작업 이력)', imp:true},
+      {k:'Ctrl+Alt+T', d:'범위를 표로 변환'},
+      {k:'Alt+Shift+K', d:'시트 목록 표시'},
+      {k:'Ctrl+/', d:'단축키 목록 보기 ★', imp:true},
+      {k:'Alt+Shift+Q', d:'빠른 요약으로 이동 (범위 선택 후)'},
+      {k:'Ctrl+Alt+Shift+A', d:'댓글 대화목록 열기'},
+      {k:'Alt+/', d:'도구 검색 기능 (메뉴 검색)', imp:true},
+      {k:'Ctrl+Alt+9', d:'행 숨기기'},
+      {k:'Ctrl+Alt+0', d:'열 숨기기'},
+      {k:'Alt+Enter', d:'하이퍼링크 열기 (엑셀은 Ctrl+클릭)'},
+      {k:'Ctrl+Alt+R', d:'필터링된 셀 드롭다운 열기'},
+      {k:'Ctrl+Alt+Shift+M', d:'스프레드시트 밖으로 포커스 이동'},
+      {k:'Alt+Shift+5', d:'취소선 적용'},
+      {k:'Ctrl+Shift+V', d:'값만 붙여넣기'},
+      {k:'Alt+Shift+1~7', d:'테두리 설정 (위/오른/아래/왼/삭제/안쪽/바깥)'},
+      {k:'Ctrl+Alt+Shift+;', d:'날짜 및 시간 삽입'},
+      {k:'Ctrl+~', d:'모든 수식 표시'},
+    ]},
+  ],
+};
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function renderCats(tab){
+  const cats = DATA[tab];
+  const container = document.getElementById('cats-'+tab);
+  const snContainer = document.getElementById('sn-'+tab);
+  if(!container) return;
+  let html='', snHtml='';
+  cats.forEach(cat=>{
+    const cnt = cat.items.length;
+    snHtml+=`<button class="jump-btn" onclick="document.getElementById('${cat.id}').scrollIntoView({behavior:'smooth',block:'start'})">${cat.icon} ${cat.name}</button>`;
+    let rows='';
+    if(tab==='gs'){
+      // comparison layout
+      cat.items.forEach((it,i)=>{
+        const parts = (it.d||'').split('\n');
+        const imp = it.imp?'important':'';
+        rows+=`<tr class="${imp}" data-search="${esc((it.k+' '+it.d).toLowerCase())}">
+          <td class="num">${i+1}</td>
+          <td><span class="shortcut">${esc(it.k)}</span></td>
+          <td class="desc">${parts.map(p=>esc(p)).join('<br>')}</td>
+        </tr>`;
+      });
+      html+=`<div class="cat-wrap" id="${cat.id}">
+        <div class="cat-head" onclick="toggleCat(this)">
+          <span class="cat-icon">${cat.icon}</span>
+          <span class="cat-name">${cat.name}</span>
+          <span class="cat-count">${cnt}개</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="cat-body" style="max-height:9999px">
+          <table><thead><tr><th style="width:30px">#</th><th>기능/단축키</th><th>내용</th></tr></thead>
+          <tbody>${rows}</tbody></table>
+        </div></div>`;
+    } else {
+      cat.items.forEach((it,i)=>{
+        const imp = it.imp?'important':'';
+        rows+=`<tr class="${imp}" data-search="${esc((it.k+' '+it.d).toLowerCase())}">
+          <td class="num">${i+1}</td>
+          <td><span class="shortcut">${esc(it.k)}</span></td>
+          <td class="desc">${esc(it.d).replace(/\n/g,'<br>')}</td>
+        </tr>`;
+      });
+      html+=`<div class="cat-wrap" id="${cat.id}">
+        <div class="cat-head" onclick="toggleCat(this)">
+          <span class="cat-icon">${cat.icon}</span>
+          <span class="cat-name">${cat.name}</span>
+          <span class="cat-count">${cnt}개</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="cat-body" style="max-height:9999px">
+          <table><thead><tr><th style="width:30px">#</th><th style="width:220px">단축키</th><th>설명</th></tr></thead>
+          <tbody>${rows}</tbody></table>
+        </div></div>`;
+    }
+  });
+  container.innerHTML=html;
+  if(snContainer) snContainer.innerHTML=snHtml;
+}
+
+function toggleCat(head){
+  const wrap = head.parentElement;
+  const body = wrap.querySelector('.cat-body');
+  if(wrap.classList.contains('collapsed')){
+    wrap.classList.remove('collapsed');
+    body.style.maxHeight = body.scrollHeight+'px';
+    setTimeout(()=>body.style.maxHeight='9999px',300);
+  } else {
+    body.style.maxHeight = body.scrollHeight+'px';
+    requestAnimationFrame(()=>{
+      wrap.classList.add('collapsed');
+      body.style.maxHeight='0';
+    });
+  }
+}
+
+// TABS
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+tab).classList.add('active');
+  });
+});
+
+// SEARCH
+document.getElementById('globalSearch').addEventListener('input',function(){
+  const q = this.value.trim().toLowerCase();
+  document.querySelectorAll('[data-search]').forEach(row=>{
+    const match = !q || row.dataset.search.includes(q);
+    row.style.display = match?'':'none';
+    if(match && q){
+      row.querySelectorAll('td').forEach(td=>{
+        td.innerHTML = td.innerHTML.replace(/<mark class="hl">([^<]+)<\/mark>/g,'$1');
+        td.innerHTML = td.innerHTML.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark class="hl">$1</mark>');
+      });
+    }
+  });
+  if(!q) document.querySelectorAll('.hl').forEach(m=>{
+    const t=document.createTextNode(m.textContent);m.parentNode.replaceChild(t,m);
+  });
+});
+
+// ═══════════════════════════════════════════
+// SUB-NOTE
+// ═══════════════════════════════════════════
+let snFilter='pending';
+let subnotes = JSON.parse(localStorage.getItem('subnotes')||'[]');
+
+function saveSubnotes(){localStorage.setItem('subnotes',JSON.stringify(subnotes));}
+
+function addSubnote(){
+  const text=document.getElementById('snText').value.trim();
+  if(!text) return;
+  const yt=document.getElementById('snYt').value.trim();
+  subnotes.unshift({id:Date.now(),text,yt,mastered:false,date:new Date().toLocaleDateString('ko-KR')});
+  saveSubnotes();
+  document.getElementById('snText').value='';
+  document.getElementById('snYt').value='';
+  renderSubnotes();
+  toast('서브노트에 추가했습니다 ✓');
+}
+
+function toggleMaster(id){
+  const sn=subnotes.find(s=>s.id===id);
+  if(sn) sn.mastered=!sn.mastered;
+  saveSubnotes();
+  renderSubnotes();
+}
+
+function delSubnote(id){
+  subnotes=subnotes.filter(s=>s.id!==id);
+  saveSubnotes();
+  renderSubnotes();
+}
+
+function setFilter(f,btn){
+  snFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSubnotes();
+}
+
+function getYtId(url){
+  const m=url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&\n?#]+)/);
+  return m?m[1]:null;
+}
+
+function renderSubnotes(){
+  const list=document.getElementById('snList');
+  const total=subnotes.length;
+  const mastered=subnotes.filter(s=>s.mastered).length;
+  document.getElementById('snStats').textContent=`전체 ${total}개 · 숙지완료 ${mastered}개 · 미숙지 ${total-mastered}개`;
+  let filtered=subnotes;
+  if(snFilter==='pending') filtered=subnotes.filter(s=>!s.mastered);
+  if(snFilter==='mastered') filtered=subnotes.filter(s=>s.mastered);
+  if(!filtered.length){
+    list.innerHTML=`<div class="empty-state"><div class="icon">📝</div>
+      ${snFilter==='pending'?'미숙지 항목이 없습니다. 모두 숙지 완료!':snFilter==='mastered'?'숙지완료 항목이 없습니다.':'서브노트가 비어있습니다.'}</div>`;
+    return;
+  }
+  list.innerHTML=filtered.map(sn=>{
+    const ytId=sn.yt?getYtId(sn.yt):null;
+    const ytHtml=sn.yt?`<a class="sn-yt-link" href="${esc(sn.yt)}" target="_blank" rel="noopener">▶ 유튜브 영상 보기</a>`:'';
+    return `<div class="sn-item${sn.mastered?' mastered':''}">
+      <div class="sn-check${sn.mastered?' checked':''}" onclick="toggleMaster(${sn.id})">${sn.mastered?'✓':''}</div>
+      <div class="sn-content">
+        <div class="sn-text">${esc(sn.text)}</div>
+        ${ytHtml}
+        <div class="sn-meta">${sn.date||''}</div>
+      </div>
+      <button class="sn-del" onclick="delSubnote(${sn.id})" title="삭제">✕</button>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════
+// MEMO
+// ═══════════════════════════════════════════
+let ytLinks = JSON.parse(localStorage.getItem('ytLinks')||'[]');
+
+function saveMemo(){localStorage.setItem('memo',document.getElementById('memoText').value);}
+function loadMemo(){
+  const m=localStorage.getItem('memo')||'';
+  document.getElementById('memoText').value=m;
+}
+
+function saveYtLinks(){localStorage.setItem('ytLinks',JSON.stringify(ytLinks));}
+
+function addYtLink(){
+  const url=document.getElementById('ytUrl').value.trim();
+  if(!url) return;
+  const title=document.getElementById('ytTitle').value.trim()||url;
+  const id=getYtId(url);
+  ytLinks.unshift({id:Date.now(),url,title,thumb:id?`https://img.youtube.com/vi/${id}/mqdefault.jpg`:''});
+  saveYtLinks();
+  document.getElementById('ytUrl').value='';
+  document.getElementById('ytTitle').value='';
+  renderYtLinks();
+  toast('링크를 추가했습니다 ▶');
+}
+
+function delYtLink(id){
+  ytLinks=ytLinks.filter(l=>l.id!==id);
+  saveYtLinks();
+  renderYtLinks();
+}
+
+function renderYtLinks(){
+  const list=document.getElementById('ytList');
+  if(!ytLinks.length){
+    list.innerHTML='<div style="color:var(--text3);font-size:12px;padding:12px 0">저장된 유튜브 링크가 없습니다.</div>';
+    return;
+  }
+  list.innerHTML=ytLinks.map(l=>`
+    <div class="yt-item">
+      ${l.thumb?`<img class="yt-thumb" src="${l.thumb}" alt="">`:
+        '<div class="yt-thumb" style="background:#1a1a1a;display:flex;align-items:center;justify-content:center;color:#dc2626;font-size:18px">▶</div>'}
+      <div class="yt-info">
+        <div class="yt-title">${esc(l.title)}</div>
+        <div class="yt-url-small">${esc(l.url)}</div>
+      </div>
+      <a class="yt-open" href="${esc(l.url)}" target="_blank" rel="noopener">열기 →</a>
+      <button class="yt-del" onclick="delYtLink(${l.id})" title="삭제">✕</button>
+    </div>
+  `).join('');
+}
+
+// TOAST
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+// ENTER key for subnote
+document.getElementById('snText').addEventListener('keydown',e=>{if(e.key==='Enter')addSubnote();});
+document.getElementById('ytUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addYtLink();});
+
+// INIT
+['win','xl','hwp','gs'].forEach(renderCats);
+loadMemo();
+renderSubnotes();
+renderYtLinks();
+</script>
+</body>
+</html>
