@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASWEHG: All about Shortcut Window Excel Hwp Google 윈도우 액셀 한글 구글 단축키</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f9fc;--surface:#f0f2f7;--card:#fff;--border:#dde2ee;
+  --accent:#2563eb;--accent2:#d97706;--accent3:#059669;--accent4:#dc2626;
+  --text:#1a1e2e;--text2:#5a6380;--text3:#9aa0b0;
+  --win:#2563eb;--xl:#059669;--hwp:#d97706;--gs:#dc2626;--note:#7c3aed;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Noto Sans KR',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(248,249,252,.97);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 12px;height:50px;gap:2px;overflow-x:auto}
+nav::-webkit-scrollbar{height:0}
+.nav-logo{font-weight:900;font-size:14px;color:var(--text);margin-right:12px;
+  white-space:nowrap;flex-shrink:0}
+.nav-logo span{color:var(--accent)}
+.tab-btn{padding:5px 11px;border-radius:6px;border:none;background:transparent;
+  color:var(--text2);cursor:pointer;font-family:var(--sans);font-size:12px;
+  font-weight:500;transition:all .15s;white-space:nowrap;flex-shrink:0;
+  display:flex;align-items:center;gap:5px}
+.tab-btn:hover{background:var(--card);color:var(--text)}
+.tab-btn.active{background:var(--card);color:var(--text);font-weight:700;
+  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+[data-tab="win"] .dot{background:var(--win)}
+[data-tab="xl"]  .dot{background:var(--xl)}
+[data-tab="hwp"] .dot{background:var(--hwp)}
+[data-tab="gs"]  .dot{background:var(--gs)}
+[data-tab="subnote"] .dot{background:var(--note)}
+[data-tab="memo"] .dot{background:var(--text3)}
+.nav-right{margin-left:auto;flex-shrink:0;padding-left:8px}
+.search-box{position:relative}
+#gSearch{background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:5px 10px 5px 28px;color:var(--text);font-family:var(--sans);font-size:11px;width:140px}
+#gSearch:focus{outline:none;border-color:var(--accent);width:180px;transition:width .2s}
+.si{position:absolute;left:9px;top:50%;transform:translateY(-50%);
+  color:var(--text3);font-size:11px;pointer-events:none}
+
+/* ── MAIN ── */
+main{max-width:960px;margin:0 auto;padding:16px 12px 80px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── SEC HEADER ── */
+.sec-hdr{display:flex;align-items:center;gap:8px;margin:0 0 12px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.sec-title{font-size:16px;font-weight:900;letter-spacing:-.3px}
+.sec-badge{padding:2px 9px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.5px}
+.b-win{background:rgba(37,99,235,.1);color:var(--win)}
+.b-xl{background:rgba(5,150,105,.1);color:var(--xl)}
+.b-hwp{background:rgba(217,119,6,.1);color:var(--hwp)}
+.b-gs{background:rgba(220,38,38,.1);color:var(--gs)}
+.b-note{background:rgba(124,58,237,.1);color:var(--note)}
+
+/* ── QUICK JUMP ── */
+.qjump{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.jbtn{padding:4px 10px;border-radius:20px;border:1px solid var(--border);
+  background:transparent;color:var(--text2);font-family:var(--sans);font-size:10px;
+  cursor:pointer;transition:all .15s;white-space:nowrap}
+.jbtn:hover,.jbtn:active{background:var(--card);color:var(--text);border-color:var(--accent)}
+
+/* ── CATEGORY BLOCK ── */
+.cat{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cat-hd{display:flex;align-items:center;gap:7px;padding:9px 12px;background:var(--card);
+  cursor:pointer;user-select:none;border-bottom:1px solid var(--border)}
+.cat-hd:hover{background:#f5f6fa}
+.cat-icon{font-size:13px}
+.cat-nm{font-weight:700;font-size:12px}
+.cat-cnt{margin-left:auto;font-size:10px;color:var(--text3);background:var(--surface);
+  padding:1px 8px;border-radius:10px}
+.chev{margin-left:6px;color:var(--text3);transition:transform .2s;font-size:9px}
+.cat.collapsed .chev{transform:rotate(-90deg)}
+.cat-bd{overflow:hidden;transition:max-height .25s ease}
+.cat.collapsed .cat-bd{max-height:0!important}
+
+/* ── TABLE ── */
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--surface);color:var(--text2);font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.7px;padding:6px 8px;border-bottom:1px solid var(--border)}
+th.th-num{width:20px;text-align:center;padding:6px 4px}
+th.th-key{width:38%}
+th.th-desc{}
+th.th-act{width:60px;text-align:center}
+td{padding:7px 8px;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.45}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(0,0,0,.015)}
+tr.mastered-row td{opacity:.38}
+tr.mastered-row .kchip{text-decoration:line-through;opacity:.6}
+
+.td-num{color:var(--text3);font-size:10px;text-align:center;padding:7px 3px;width:20px}
+.td-key{padding:7px 8px;width:38%}
+.td-desc{padding:7px 8px;font-size:12px;color:var(--text);line-height:1.5}
+.td-act{padding:4px 6px;text-align:center;white-space:nowrap;width:56px}
+
+/* key chip */
+.kchip{font-family:var(--mono);font-size:11px;color:#78350f;
+  background:#fef3c7;padding:2px 6px;border-radius:4px;
+  border:1px solid #fde68a;display:inline-block;line-height:1.55;
+  word-break:break-all;white-space:normal}
+tr.important .kchip{background:#fef0c7;border-color:#f59e0b;color:#92400e;font-weight:600}
+
+/* action buttons */
+.btn-master{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--border);
+  background:transparent;cursor:pointer;font-size:13px;display:inline-flex;
+  align-items:center;justify-content:center;transition:all .15s;vertical-align:middle}
+.btn-master:hover{border-color:#059669;background:rgba(5,150,105,.08)}
+.btn-master.done{background:#059669;border-color:#059669;color:#fff}
+.btn-fav{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--border);
+  background:transparent;cursor:pointer;font-size:12px;display:inline-flex;
+  align-items:center;justify-content:center;transition:all .15s;vertical-align:middle;margin-left:3px}
+.btn-fav:hover{border-color:#d97706;background:rgba(217,119,6,.08)}
+.btn-fav.starred{background:#fef3c7;border-color:#f59e0b;color:#d97706}
+
+/* ── SUB-NOTE ── */
+.sn-wrap{max-width:700px}
+.sn-bar{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.sn-inp{flex:1;min-width:180px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--sans);font-size:13px}
+.sn-inp:focus{outline:none;border-color:var(--note)}
+.btn-sn-add{padding:8px 16px;background:var(--note);color:#fff;border:none;border-radius:8px;
+  font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-sn-add:hover{opacity:.85}
+.sn-filters{display:flex;gap:5px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.fbtn{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;
+  color:var(--text2);font-family:var(--sans);font-size:11px;cursor:pointer}
+.fbtn.active{background:var(--note);color:#fff;border-color:var(--note)}
+.sn-stats{margin-left:auto;font-size:10px;color:var(--text3)}
+.sn-list{display:flex;flex-direction:column;gap:7px}
+.sni{background:var(--card);border:1px solid var(--border);border-radius:9px;
+  padding:11px 12px;display:flex;align-items:flex-start;gap:10px;transition:opacity .2s}
+.sni.done{opacity:.38}
+.sni.done .sni-text{text-decoration:line-through;color:var(--text3)}
+.sni-chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-size:12px;margin-top:1px}
+.sni-chk:hover{border-color:var(--note)}
+.sni-chk.done{background:var(--note);border-color:var(--note);color:#fff}
+.sni-body{flex:1}
+.sni-text{font-size:13px;line-height:1.5}
+.sni-yt{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:#dc2626;
+  text-decoration:none;margin-top:4px}
+.sni-yt:hover{text-decoration:underline}
+.sni-date{font-size:10px;color:var(--text3);margin-top:3px}
+.sni-del{color:var(--text3);background:transparent;border:none;cursor:pointer;
+  font-size:15px;padding:0 3px;flex-shrink:0}
+.sni-del:hover{color:var(--accent4)}
+.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+
+/* ── MEMO ── */
+.memo-wrap{max-width:700px}
+.memo-sec{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:14px;margin-bottom:14px}
+.memo-sec-title{font-size:11px;font-weight:700;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.memo-ta{width:100%;background:var(--surface);border:1px solid var(--border);
+  border-radius:7px;padding:9px;color:var(--text);font-family:var(--sans);
+  font-size:13px;resize:vertical;min-height:140px;line-height:1.6}
+.memo-ta:focus{outline:none;border-color:var(--accent)}
+.yt-row{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+.yt-inp{flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);
+  border-radius:7px;padding:7px 9px;color:var(--text);font-family:var(--sans);font-size:12px}
+.yt-inp:focus{outline:none;border-color:#dc2626}
+.btn-yt{padding:7px 13px;background:#dc2626;color:#fff;border:none;border-radius:7px;
+  font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer}
+.btn-yt:hover{opacity:.85}
+.yt-list{display:flex;flex-direction:column;gap:7px;max-height:300px;overflow-y:auto}
+.yt-item{background:var(--surface);border:1px solid var(--border);border-radius:7px;
+  padding:9px 10px;display:flex;align-items:center;gap:9px}
+.yt-thumb{width:72px;height:41px;border-radius:4px;object-fit:cover;flex-shrink:0}
+.yt-info{flex:1;min-width:0}
+.yt-name{font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.yt-link{font-size:10px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.yt-open{color:#dc2626;font-size:11px;text-decoration:none;white-space:nowrap}
+.yt-del{color:var(--text3);background:transparent;border:none;cursor:pointer;font-size:14px;padding:0 2px}
+.yt-del:hover{color:var(--accent4)}
+
+/* ── FAVORITES LIST (in memo) ── */
+.fav-item{background:var(--surface);border:1px solid #fde68a;border-radius:7px;
+  padding:9px 12px;display:flex;align-items:center;gap:9px}
+.fav-star{font-size:14px;flex-shrink:0}
+.fav-body{flex:1;min-width:0}
+.fav-key{font-family:var(--mono);font-size:11px;color:#78350f;margin-bottom:2px;word-break:break-all}
+.fav-desc{font-size:12px;color:var(--text);line-height:1.4}
+.fav-src{font-size:10px;color:var(--text3);margin-top:2px}
+.fav-unfav{color:var(--text3);background:transparent;border:none;cursor:pointer;font-size:14px;padding:0 3px}
+.fav-unfav:hover{color:var(--accent4)}
+
+/* ── HIGHLIGHT ── */
+mark.hl{background:rgba(217,119,6,.25);border-radius:2px;padding:0 1px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;right:16px;background:var(--text);color:#fff;
+  border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;
+  transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">⌨️ <span>ASWEHG</span></div>
+  <button class="tab-btn active" data-tab="win"><span class="dot"></span>윈도우</button>
+  <button class="tab-btn" data-tab="xl"><span class="dot"></span>엑셀</button>
+  <button class="tab-btn" data-tab="hwp"><span class="dot"></span>한글HWP</button>
+  <button class="tab-btn" data-tab="gs"><span class="dot"></span>구글시트</button>
+  <button class="tab-btn" data-tab="subnote"><span class="dot"></span>서브노트</button>
+  <button class="tab-btn" data-tab="memo"><span class="dot"></span>메모·즐겨찾기</button>
+  <div class="nav-right">
+    <div class="search-box">
+      <span class="si">🔍</span>
+      <input id="gSearch" type="text" placeholder="검색...">
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="tab-panel active" id="tab-win">
+  <div class="sec-hdr"><div class="sec-title">윈도우 단축키</div><span class="sec-badge b-win">WINDOWS</span></div>
+  <div class="qjump" id="qj-win"></div>
+  <div id="cats-win"></div>
+</div>
+
+<div class="tab-panel" id="tab-xl">
+  <div class="sec-hdr"><div class="sec-title">엑셀 단축키</div><span class="sec-badge b-xl">EXCEL</span></div>
+  <div class="qjump" id="qj-xl"></div>
+  <div id="cats-xl"></div>
+</div>
+
+<div class="tab-panel" id="tab-hwp">
+  <div class="sec-hdr"><div class="sec-title">한글(HWP) 단축키</div><span class="sec-badge b-hwp">한글 HWP</span></div>
+  <div class="qjump" id="qj-hwp"></div>
+  <div id="cats-hwp"></div>
+</div>
+
+<div class="tab-panel" id="tab-gs">
+  <div class="sec-hdr"><div class="sec-title">구글 스프레드시트 vs 엑셀</div><span class="sec-badge b-gs">GOOGLE SHEETS</span></div>
+  <div class="qjump" id="qj-gs"></div>
+  <div id="cats-gs"></div>
+</div>
+
+<div class="tab-panel" id="tab-subnote">
+  <div class="sec-hdr"><div class="sec-title">서브노트</div><span class="sec-badge b-note">SUB NOTE</span></div>
+  <div class="sn-wrap">
+    <div class="sn-bar">
+      <input class="sn-inp" id="snText" placeholder="숙지할 내용 입력...">
+      <input class="sn-inp" id="snYt" placeholder="유튜브 URL (선택)" style="max-width:200px">
+      <button class="btn-sn-add" onclick="addSN()">추가 +</button>
+    </div>
+    <div class="sn-filters">
+      <button class="fbtn active" onclick="setSNF('pending',this)">미숙지</button>
+      <button class="fbtn" onclick="setSNF('all',this)">전체</button>
+      <button class="fbtn" onclick="setSNF('done',this)">숙지완료</button>
+      <span class="sn-stats" id="snStats"></span>
+    </div>
+    <div class="sn-list" id="snList"></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-memo">
+  <div class="sec-hdr"><div class="sec-title">메모 &amp; 즐겨찾기</div><span class="sec-badge" style="background:rgba(0,0,0,.06);color:var(--text2)">MEMO</span></div>
+  <div class="memo-wrap">
+    <div class="memo-sec">
+      <div class="memo-sec-title">⭐ 즐겨찾기한 단축키</div>
+      <div id="favList"><div class="empty">즐겨찾기한 단축키가 없습니다.<br><small style="color:var(--text3)">각 탭에서 ★ 버튼으로 추가하세요</small></div></div>
+    </div>
+    <div class="memo-sec">
+      <div class="memo-sec-title">📝 자유 메모</div>
+      <textarea class="memo-ta" id="memoTA" rows="7" placeholder="자유롭게 메모하세요..." oninput="saveMemo()"></textarea>
+    </div>
+    <div class="memo-sec">
+      <div class="memo-sec-title">▶ 유튜브 링크</div>
+      <div class="yt-row">
+        <input class="yt-inp" id="ytUrl" placeholder="유튜브 URL...">
+        <input class="yt-inp" id="ytTitle" placeholder="제목 (선택)">
+        <button class="btn-yt" onclick="addYT()">추가</button>
+      </div>
+      <div class="yt-list" id="ytList"></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════ DATA ═══════════════════
+const DATA = {
+  win:[
+    {id:'w-tip',icon:'⭐',name:'상급 꿀팁',items:[
+      {k:'Win+상하좌우 방향키',d:'창 분할 (화면 절반 배치)',imp:1},
+      {k:'Win+D',d:'바탕화면 보기 / 복원 (토글)',imp:1},
+      {k:'Win+Tab',d:'가상 데스크톱 전체보기 / 타임라인',imp:1},
+      {k:'Win+Shift+S',d:'편집형 스크린샷 (영역 지정)',imp:1},
+      {k:'Win+L',d:'화면 잠금',imp:1},
+      {k:'Win+V',d:'클립보드 기록 보기',imp:1},
+      {k:'Win+E',d:'윈도우 탐색기 창 열기'},
+      {k:'Win+M / Win+Shift+M',d:'창 전체 최소화 / 복원'},
+      {k:'Ctrl+Win+D',d:'가상 데스크톱 새로 만들기'},
+      {k:'Ctrl+Win+← / →',d:'가상 데스크톱 이동'},
+      {k:'Ctrl+Win+F4',d:'현재 가상 데스크톱 삭제'},
+      {k:'Win+숫자(1~9)',d:'작업표시줄 순차 열기'},
+      {k:'Win+T',d:'작업표시줄 창 순서대로 띄우기'},
+      {k:'Ctrl+Shift+방향키',d:'단어 단위로 블록 지정'},
+      {k:'Win+I',d:'설정 열기'},
+      {k:'Win+Q / Win+S',d:'검색 열기'},
+    ]},
+    {id:'w-ctrl',icon:'Ⓒ',name:'Ctrl & Window 계열',items:[
+      {k:'Ctrl+Tab',d:'오른쪽 탭 이동',imp:1},
+      {k:'Ctrl+Shift+Tab',d:'왼쪽 탭 이동',imp:1},
+      {k:'Ctrl+1~9',d:'해당 번호 탭 이동',imp:1},
+      {k:'Ctrl+0',d:'마지막 실행 탭 선택',imp:1},
+      {k:'Ctrl+Pg up / Pg Dn',d:'탭 이동',imp:1},
+      {k:'Windows+B',d:'작업표시줄 숨겨진 탭',imp:1},
+      {k:'Windows+C',d:'Copilot 열기',imp:1},
+      {k:'Windows+D',d:'바탕화면 보기/돌아가기',imp:1},
+      {k:'Window+Ctrl',d:'열려 있는 창 이동',imp:1},
+      {k:'Ctrl+A',d:'전체 선택'},
+      {k:'Ctrl+C / X / V',d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Z / Y',d:'실행취소 / 다시실행'},
+      {k:'Ctrl+F',d:'찾기'},
+      {k:'Ctrl+H',d:'방문기록 / 찾아바꾸기'},
+      {k:'Ctrl+N',d:'새 창 또는 새 탭'},
+      {k:'Ctrl+W',d:'탭 또는 창 닫기'},
+      {k:'Ctrl+방향키',d:'단어 단위로 이동'},
+      {k:'Ctrl+Backspace',d:'단어 단위 삭제'},
+      {k:'Ctrl+R',d:'새로고침'},
+      {k:'Ctrl+T',d:'새 탭'},
+      {k:'Windows+E',d:'윈도우 탐색기'},
+      {k:'Windows+L',d:'화면 잠금'},
+      {k:'Windows+↑',d:'전체화면'},
+      {k:'Windows+↓',d:'최소화'},
+      {k:'Windows+←/→',d:'창 왼쪽/오른쪽 절반 배치'},
+      {k:'Windows+Tab',d:'에어로 탭 / 타임라인'},
+      {k:'Windows+숫자',d:'작업 표시줄 실행'},
+      {k:'Window+Alt+D',d:'달력과 시계 표시'},
+      {k:'Ctrl+Win+Alt+Shift+X',d:'Excel 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+W',d:'Microsoft Word 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+P',d:'PowerPoint 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+O',d:'Outlook 바로 열기'},
+      {k:'Ctrl+Win+Alt+Shift+N',d:'OneNote 바로 열기'},
+    ]},
+    {id:'w-alt',icon:'⎇',name:'Alt · Shift · 기타',items:[
+      {k:'Alt+Tab',d:'작업 전환 (창 이동)',imp:1},
+      {k:'Alt+2',d:'새 폴더 (탐색기 환경)',imp:1},
+      {k:'Alt+F4',d:'현재 창 종료 / 시스템 종료창'},
+      {k:'Alt+방향키',d:'이전 페이지 / 다음 페이지'},
+      {k:'Alt+D',d:'주소창 이동'},
+      {k:'Alt+prt sc',d:'현재 창 스크린샷'},
+      {k:'Alt+Space',d:'우클릭 메뉴 호출'},
+      {k:'Alt+Shift',d:'키보드 입력 언어 전환'},
+      {k:'Shift+Del',d:'완전 삭제'},
+      {k:'Shift+Prt Sc',d:'화면 전체 스크린샷'},
+      {k:'Shift+방향키',d:'바로 위/아래 줄 블록 지정'},
+      {k:'Shift+Home / End',d:'해당 줄 블록 지정'},
+      {k:'Shift+Pg up / Pg Dn',d:'페이지 위/아래 블록 지정'},
+      {k:'Shift+Insert',d:'붙여넣기'},
+      {k:'F1',d:'프로그램 도움말'},
+      {k:'F2',d:'파일/폴더 이름 바꾸기'},
+      {k:'Win+Shift+R',d:'파워 새로고침'},
+    ]},
+  ],
+  xl:[
+    {id:'x-basic',icon:'⚡',name:'기본 조작',items:[
+      {k:'Ctrl+E',d:'Flash Fill (빠른 채우기) — 패턴 인식 자동완성',imp:1},
+      {k:'Ctrl+Alt+V',d:'선택하여 붙여넣기 (창 열기)',imp:1},
+      {k:'Ctrl+T',d:'표(Table) 지정 (블록 후)',imp:1},
+      {k:'Ctrl+Shift+L',d:'필터 설정/해제',imp:1},
+      {k:'Ctrl+방향키',d:'셀 끝으로 이동',imp:1},
+      {k:'Ctrl+Shift+방향키',d:'셀 전체 범위 선택',imp:1},
+      {k:'Alt+H+U+S',d:'단순 합산 (블록 후)',imp:1},
+      {k:'Alt+W+F+F',d:'틀 고정 (행+열)',imp:1},
+      {k:'Ctrl+1',d:'셀 서식 창 열기',imp:1},
+      {k:'Ctrl+N',d:'새 파일'},
+      {k:'Ctrl+O / Ctrl+F12',d:'파일 열기'},
+      {k:'Ctrl+S',d:'저장'},
+      {k:'Alt+S',d:'다른 이름으로 저장'},
+      {k:'Ctrl+P',d:'인쇄'},
+      {k:'Ctrl+Z / Ctrl+Y',d:'실행취소 / 다시실행'},
+      {k:'Ctrl+C / X / V',d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+B / I / U',d:'굵게 / 기울임 / 밑줄'},
+      {k:'Ctrl+F / H',d:'찾기 / 찾아바꾸기'},
+      {k:'Ctrl+G',d:'이동 창 열기'},
+      {k:'Ctrl+K',d:'하이퍼링크 삽입'},
+      {k:'Ctrl+; / Ctrl+Shift+;',d:'현재 날짜 / 현재 시간 입력'},
+      {k:'Ctrl+Shift+\'+\'',d:'행과 열 삽입'},
+      {k:'Ctrl+\'-\'',d:'행 또는 열 내용 삭제'},
+      {k:'Delete',d:'셀 내용 삭제'},
+      {k:'Shift+방향키',d:'셀 선택 + 이동'},
+      {k:'Ctrl+클릭',d:'비연속 셀 중첩 선택'},
+      {k:'Ctrl+D',d:'아래로 채우기'},
+      {k:'Ctrl+R',d:'오른쪽으로 채우기'},
+      {k:'Ctrl+꼭지점 drag',d:'연속 데이터 채우기'},
+      {k:'Ctrl+워크시트탭 드래그',d:'시트 복사 (원하는 탭 위치로)'},
+      {k:'Alt+F11',d:'VBA 편집기 실행'},
+      {k:'Ctrl+Alt+F9',d:'모든 워크시트 강제 재계산'},
+      {k:'Ctrl+Tab',d:'다음 통합문서 이동'},
+      {k:'block→Ctrl+F',d:'찾아 지우기'},
+      {k:'block→Ctrl+H',d:'찾아 바꾸기'},
+    ]},
+    {id:'x-fmt',icon:'🎨',name:'셀 서식 변경',items:[
+      {k:'Ctrl+Shift+1',d:'통화 형식 (콤마, 단위 없음)'},
+      {k:'Ctrl+Shift+2',d:'시간 형식'},
+      {k:'Ctrl+Shift+3',d:'날짜 형식'},
+      {k:'Ctrl+Shift+4',d:'통화 형식 (₩ 표시)'},
+      {k:'Ctrl+Shift+5',d:'% 형식'},
+      {k:'Ctrl+Shift+6',d:'지수 형식'},
+      {k:'Ctrl+Shift+7',d:'셀 바깥 테두리 적용',imp:1},
+      {k:'Ctrl+Shift+\'-\'',d:'안쪽 선 지우기'},
+      {k:'Alt+7+O / P / L / R',d:'테두리 아래 / 위 / 왼 / 오른'},
+      {k:'Alt+7+N / A',d:'테두리 없음 / 모든 선'},
+      {k:'Alt+7+S',d:'바깥 테두리'},
+      {k:'Alt+7+T',d:'굵은 바깥 테두리'},
+      {k:'Alt+7+B',d:'아래 이중 테두리'},
+      {k:'Alt+H+K',d:'쉼표 넣고 우측 정렬'},
+      {k:'Ctrl+6',d:'삽입 기능 비활성화 해제'},
+    ]},
+    {id:'x-paste',icon:'📋',name:'선택하여 붙여넣기 (Ctrl+Alt+V 후)',items:[
+      {k:'V',d:'값만 복붙 ★',imp:1},
+      {k:'F',d:'수식만'},
+      {k:'O',d:'수식 및 숫자서식'},
+      {k:'K',d:'원본 서식 유지'},
+      {k:'B',d:'테두리 지우기'},
+      {k:'W',d:'열 너비 유지'},
+      {k:'T',d:'행열 바꿈'},
+      {k:'A',d:'값과 숫자서식'},
+      {k:'E',d:'값과 원본서식'},
+      {k:'R',d:'서식만'},
+      {k:'N',d:'연결 붙이기'},
+      {k:'U',d:'투명 그림으로 바꾸기'},
+      {k:'I',d:'연결 그림으로 바꾸기'},
+    ]},
+    {id:'x-fkey',icon:'⌨',name:'함수키 F1~F12',items:[
+      {k:'F1',d:'도움말  |  Alt: 차트 만들기  |  Ctrl: 리본 보이기/숨기기'},
+      {k:'F2',d:'셀 내용 편집  |  Alt: 다른이름 저장  |  Shift: 메모 삽입/편집',imp:1},
+      {k:'F3',d:'사용자 지정 범위 목록  |  Ctrl: 이름관리자  |  Shift: 함수마법사'},
+      {k:'F4',d:'셀 참조 변경 (절대/상대) ★  |  Alt: 통합문서 종료',imp:1},
+      {k:'F5',d:'이동 창  |  Shift: 찾기 및 바꾸기'},
+      {k:'F6',d:'리본·시트·상태창 전환  |  Ctrl: 이전 통합문서 이동'},
+      {k:'F7',d:'맞춤법 검사  |  Shift: 동의어사전'},
+      {k:'F8',d:'선택영역 확장 모드  |  Alt: 매크로 선택창'},
+      {k:'F9',d:'현재 통합문서 수식 재계산  |  Ctrl+Alt: 모든 재계산',imp:1},
+      {k:'F10',d:'리본 단축키 보이기  |  Alt: 개체 선택창'},
+      {k:'F11',d:'차트시트 생성  |  Alt: VBA 편집기  |  Shift: 새 시트 추가'},
+      {k:'F12',d:'다른이름으로 저장  |  Ctrl: 파일 열기  |  Shift: 파일 저장'},
+    ]},
+    {id:'x-func',icon:'🔢',name:'날짜·수식·함수 팁',items:[
+      {k:'ROW()-ROW(표1[[#머리글],[열1]])',d:'자동 번호 넣기 (표 안에서)',imp:1},
+      {k:'=시트명!셀주소',d:'다른 시트 셀 값 참조',imp:1},
+      {k:'WEEKDAY(날짜셀)',d:'날짜 요일을 숫자로 변환 (1=일, 7=토)'},
+      {k:'TEXT(날짜셀,"dddd")',d:'날짜를 지정 형식 텍스트로 변환'},
+      {k:'DAY(날짜셀)',d:'날짜에서 일(day)만 추출'},
+      {k:'EDATE(날짜셀, 개월수)',d:'날짜로부터 N개월 후 날짜'},
+      {k:'REPLACE(셀,시작,개수,"대체")',d:'특정 위치 철자 대체'},
+      {k:'REPT("|",셀)',d:'변칙 막대 그래프 (폰트: Playbill)'},
+      {k:'Ctrl+Q→O→선택',d:'빠른 분석: 자동 sum / 누적합계'},
+      {k:'CTRL+`(백틱)',d:'수식 전체 표시 모드 토글'},
+      {k:'B4/(GCD(B4,C4))&":"&C4/GCD(B4,C4)',d:'비율 표현 수식 (예: 16:9)'},
+    ]},
+  ],
+  hwp:[
+    {id:'h-file',icon:'📁',name:'파일 관리',items:[
+      {k:'Ctrl+N',d:'새 문서'},
+      {k:'Ctrl+O',d:'문서 열기'},
+      {k:'Alt+O',d:'불러오기'},
+      {k:'Ctrl+S',d:'저장'},
+      {k:'Alt+S',d:'다른 이름으로 저장'},
+      {k:'Ctrl+W / Alt+F4',d:'닫기 / 프로그램 종료'},
+      {k:'Ctrl+P',d:'인쇄'},
+      {k:'Ctrl+F12',d:'PDF로 저장',imp:1},
+    ]},
+    {id:'h-edit',icon:'✏️',name:'편집 기본',items:[
+      {k:'F4',d:'최근 실행 반복 ★',imp:1},
+      {k:'Ctrl+Enter',d:'쪽 나누기 (강제 페이지)',imp:1},
+      {k:'Ctrl+Z / Ctrl+Y',d:'실행취소 / 다시실행'},
+      {k:'Ctrl+A',d:'전체 선택'},
+      {k:'Ctrl+C / X / V',d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Alt+V',d:'골라 붙이기'},
+      {k:'Ctrl+F / H',d:'찾기 / 찾아 바꾸기'},
+      {k:'F2',d:'찾기 (이전 검색어 재사용)'},
+      {k:'Delete / Backspace',d:'오른쪽 / 왼쪽 한 글자 삭제'},
+      {k:'Ctrl+Delete / Backspace',d:'오른쪽 / 왼쪽 단어 삭제'},
+      {k:'Shift+Enter',d:'줄 바꿈 (강제 줄 나누기)'},
+      {k:'Insert',d:'삽입/수정 모드 전환'},
+    ]},
+    {id:'h-nav',icon:'🧭',name:'이동 · 선택',items:[
+      {k:'Ctrl+Home / End',d:'문서 처음 / 끝으로 이동',imp:1},
+      {k:'Shift+Ctrl+방향키',d:'단어 단위 블록 선택',imp:1},
+      {k:'Ctrl+방향키',d:'단어/단락 단위 이동'},
+      {k:'Shift+방향키',d:'글자 단위 블록 선택'},
+      {k:'Shift+Home / End',d:'현재 줄 처음/끝까지 블록'},
+      {k:'Shift+Ctrl+Home / End',d:'문서 처음/끝까지 블록'},
+      {k:'Pg Up / Pg Dn',d:'화면 단위 이동'},
+      {k:'F5',d:'이동 창 열기 (쪽 이동 등)'},
+      {k:'Tab / Shift+Tab',d:'표 다음 셀 / 이전 셀 이동'},
+    ]},
+    {id:'h-char',icon:'🔤',name:'글자 서식',items:[
+      {k:'Ctrl+D',d:'글자 모양 창 열기',imp:1},
+      {k:'Ctrl+B / I / U',d:'굵게 / 기울임 / 밑줄'},
+      {k:'Ctrl+Shift+F',d:'글꼴 변경 (목록)'},
+      {k:'Ctrl+Shift+P',d:'글자 크기 변경'},
+      {k:'Ctrl+Shift+T / R',d:'글자 크기 크게 / 작게'},
+      {k:'Shift+F3',d:'대/소문자 변환 (영문)'},
+      {k:'Ctrl+Shift+C',d:'글자 색 지정'},
+      {k:'Ctrl+Shift+H',d:'형광펜 색 지정'},
+      {k:'Alt+L',d:'위첨자'},
+      {k:'Alt+Shift+L',d:'아래첨자'},
+      {k:'Ctrl+Shift+X',d:'서식 제거'},
+    ]},
+    {id:'h-para',icon:'¶',name:'문단 서식',items:[
+      {k:'Ctrl+L / E / R / J',d:'왼쪽 / 가운데 / 오른쪽 / 양쪽 정렬',imp:1},
+      {k:'Ctrl+Shift+W',d:'배분 정렬'},
+      {k:'Alt+T',d:'문단 모양 창 열기'},
+      {k:'Ctrl+1~6',d:'스타일 적용 (1=본문 ~ 6=제목1)'},
+      {k:'F6',d:'스타일 목록 적용'},
+      {k:'Tab (문단 앞)',d:'들여쓰기'},
+      {k:'Shift+Tab (문단 앞)',d:'내어쓰기'},
+    ]},
+    {id:'h-ins',icon:'➕',name:'삽입 · 개체',items:[
+      {k:'Ctrl+N, T',d:'표 삽입',imp:1},
+      {k:'Ctrl+F10',d:'특수 문자 입력',imp:1},
+      {k:'Ctrl+N, I',d:'그림 삽입'},
+      {k:'Ctrl+N, B',d:'글상자 삽입'},
+      {k:'Ctrl+K, H',d:'하이퍼링크 삽입'},
+      {k:'Ctrl+K, B',d:'책갈피 삽입'},
+      {k:'Ctrl+N, E',d:'수식 편집기 삽입'},
+      {k:'F9',d:'필드 업데이트 / 입력'},
+      {k:'Ctrl+F9',d:'각주 삽입'},
+      {k:'Ctrl+Shift+F9',d:'미주 삽입'},
+    ]},
+    {id:'h-etc',icon:'🔧',name:'기타 기능',items:[
+      {k:'Alt+Shift+P',d:'쪽 번호 매기기',imp:1},
+      {k:'Ctrl+Alt+C',d:'차례(목차) 만들기',imp:1},
+      {k:'F7',d:'맞춤법 검사'},
+      {k:'Shift+F7',d:'유사어/반의어 사전'},
+      {k:'Alt+P',d:'머리말 편집'},
+      {k:'Alt+Shift+PgDn',d:'꼬리말 편집'},
+      {k:'Alt+F8',d:'매크로 편집기'},
+      {k:'Ctrl+Q',d:'매크로 실행'},
+      {k:'Ctrl+Alt+U',d:'쪽 번호 지우기'},
+    ]},
+  ],
+  gs:[
+    {id:'g-same',icon:'✅',name:'엑셀과 동일한 단축키',items:[
+      {k:'Ctrl+C / X / V',d:'복사 / 잘라내기 / 붙여넣기'},
+      {k:'Ctrl+Z / Y',d:'실행취소 / 다시실행'},
+      {k:'Ctrl+A',d:'전체 선택'},
+      {k:'Ctrl+S',d:'저장 (구글은 자동저장)'},
+      {k:'Ctrl+P',d:'인쇄'},
+      {k:'Ctrl+B / I / U',d:'굵게 / 기울임 / 밑줄'},
+      {k:'Ctrl+방향키',d:'셀 끝으로 이동'},
+      {k:'Ctrl+D',d:'아래로 채우기'},
+      {k:'Ctrl+R',d:'오른쪽으로 채우기'},
+      {k:'Ctrl+K',d:'하이퍼링크 삽입'},
+      {k:'Shift+F11',d:'새 시트 삽입'},
+      {k:'Ctrl+;',d:'현재 날짜 입력'},
+      {k:'Ctrl+Shift+;',d:'현재 시간 입력'},
+      {k:'F4',d:'절대/상대 참조 전환'},
+      {k:'Ctrl+Enter',d:'범위 채우기'},
+      {k:'Ctrl+Home / End',d:'시트 처음 / 끝으로 이동'},
+      {k:'Ctrl+Shift+Enter',d:'배열 수식 입력'},
+    ]},
+    {id:'g-diff',icon:'🔄',name:'기능 같지만 단축키 다름 ★',items:[
+      {k:'값만 붙여넣기',d:'엑셀: Ctrl+Alt+V → V\n구글: Ctrl+Shift+V',imp:1},
+      {k:'취소선',d:'엑셀: Ctrl+5\n구글: Alt+Shift+5'},
+      {k:'가운데 맞춤',d:'엑셀: Ctrl+E (Flash Fill과 혼용 주의)\n구글: Ctrl+Shift+E',imp:1},
+      {k:'댓글/메모 삽입',d:'엑셀: Shift+F2 / Alt+A+M\n구글: Ctrl+Alt+M'},
+      {k:'바깥쪽 테두리',d:'엑셀: Ctrl+Shift+7\n구글: Alt+Shift+7'},
+      {k:'수식 전체 표시',d:'엑셀: Ctrl+` (백틱)\n구글: Ctrl+~'},
+      {k:'다음 시트 이동',d:'엑셀: Ctrl+Pg Dn\n구글: Alt+↓',imp:1},
+      {k:'이전 시트 이동',d:'엑셀: Ctrl+Pg Up\n구글: Alt+↑'},
+      {k:'행 숨기기',d:'엑셀: Ctrl+9\n구글: Ctrl+Alt+9'},
+      {k:'열 숨기기',d:'엑셀: Ctrl+0\n구글: Ctrl+Alt+0'},
+      {k:'열 선택',d:'엑셀: 열 머리글 클릭\n구글: Ctrl+스페이스바'},
+      {k:'행 선택',d:'엑셀: 행 머리글 클릭\n구글: Shift+스페이스바'},
+      {k:'필터 설정/해제',d:'엑셀: Ctrl+Shift+L\n구글: 없음 (메뉴)'},
+    ]},
+    {id:'g-xlonly',icon:'🟢',name:'엑셀에서만 가능 (구글 없음)',items:[
+      {k:'Ctrl+E',d:'Flash Fill (빠른 채우기) — 패턴 인식 자동완성',imp:1},
+      {k:'Ctrl+1',d:'셀 서식 창 열기'},
+      {k:'Alt+F11',d:'VBA 편집기 (구글은 Apps Script)'},
+      {k:'Ctrl+Tab',d:'다음 통합문서 이동'},
+      {k:'Ctrl+Alt+F9',d:'모든 수식 강제 재계산'},
+      {k:'Alt+W+F+F',d:'틀 고정 (행+열)'},
+      {k:'F5 / Ctrl+G',d:'이동 창 (특수 셀 선택 포함)'},
+      {k:'Ctrl+Alt+V',d:'선택하여 붙이기 창 (다양한 옵션)'},
+      {k:'Alt+F8',d:'매크로 대화상자'},
+      {k:'Alt+F1',d:'차트 만들기 (선택영역 기반)'},
+    ]},
+    {id:'g-gsonly',icon:'🔵',name:'구글에서만 가능 (엑셀 없음)',items:[
+      {k:'Ctrl+Alt+M',d:'댓글 삽입/수정',imp:1},
+      {k:'Ctrl+Alt+Shift+H',d:'업데이트 기록 열기 (공동작업 이력)',imp:1},
+      {k:'Ctrl+/',d:'단축키 목록 보기 ★',imp:1},
+      {k:'Alt+/',d:'도구 검색 기능 (메뉴 검색)',imp:1},
+      {k:'Ctrl+Alt+T',d:'범위를 표로 변환'},
+      {k:'Alt+Shift+K',d:'시트 목록 표시'},
+      {k:'Alt+Shift+Q',d:'빠른 요약으로 이동 (범위 선택 후)'},
+      {k:'Ctrl+Alt+Shift+A',d:'댓글 대화목록 열기'},
+      {k:'Alt+Enter',d:'하이퍼링크 열기 (엑셀은 Ctrl+클릭)'},
+      {k:'Ctrl+Alt+R',d:'필터링된 셀 드롭다운 열기'},
+      {k:'Ctrl+Shift+V',d:'값만 붙여넣기'},
+      {k:'Alt+Shift+1~7',d:'테두리 설정 (위/오른/아래/왼/삭제/안쪽/바깥)'},
+      {k:'Ctrl+Alt+Shift+;',d:'날짜 및 시간 삽입'},
+      {k:'Ctrl+~',d:'모든 수식 표시'},
+      {k:'Alt+Shift+5',d:'취소선 적용'},
+    ]},
+  ],
+};
+
+// ═══════════════════ STATE ═══════════════════
+let states = JSON.parse(localStorage.getItem('itemStates')||'{}');
+// key: "tab_catId_itemIndex" => {mastered, fav}
+function getState(tab,catId,idx){
+  const k=`${tab}__${catId}__${idx}`;
+  return states[k]||{mastered:false,fav:false};
+}
+function setState(tab,catId,idx,patch){
+  const k=`${tab}__${catId}__${idx}`;
+  states[k]={...getState(tab,catId,idx),...patch};
+  localStorage.setItem('itemStates',JSON.stringify(states));
+}
+
+// ═══════════════════ RENDER CATS ═══════════════════
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function buildRow(tab,catId,item,origIdx,displayIdx){
+  const s=getState(tab,catId,origIdx);
+  const imp=item.imp?'important':'';
+  const mCls=s.mastered?'mastered-row':'';
+  const mBtnCls=s.mastered?'done':'';
+  const fCls=s.fav?'starred':'';
+  const desc=esc(item.d).replace(/\n/g,'<br>');
+  return `<tr class="${imp} ${mCls}" data-tab="${tab}" data-cat="${catId}" data-idx="${origIdx}" data-search="${esc((item.k+' '+item.d).toLowerCase())}">
+    <td class="td-num">${displayIdx+1}</td>
+    <td class="td-key"><span class="kchip">${esc(item.k)}</span></td>
+    <td class="td-desc">${desc}</td>
+    <td class="td-act">
+      <button class="btn-master ${mBtnCls}" title="${s.mastered?'숙지완료 (해제하려면 클릭)':'숙지 완료'}" onclick="toggleMaster('${tab}','${catId}',${origIdx},this)">✓</button><button class="btn-fav ${fCls}" title="즐겨찾기" onclick="toggleFav('${tab}','${catId}',${origIdx},this)">★</button>
+    </td>
+  </tr>`;
+}
+
+function renderCats(tab){
+  const cats=DATA[tab];
+  const container=document.getElementById('cats-'+tab);
+  const qj=document.getElementById('qj-'+tab);
+  if(!container)return;
+  let html='',qjHtml='';
+  cats.forEach(cat=>{
+    qjHtml+=`<button class="jbtn" onclick="document.getElementById('${cat.id}').scrollIntoView({behavior:'smooth',block:'start'})">${cat.icon} ${cat.name}</button>`;
+    const pendingItems=cat.items.map((it,i)=>({it,i})).filter(({i})=>!getState(tab,cat.id,i).mastered);
+    const doneItems=cat.items.map((it,i)=>({it,i})).filter(({i})=>getState(tab,cat.id,i).mastered);
+    const sorted=[...pendingItems,...doneItems];
+    let rows=sorted.map(({it,i},di)=>buildRow(tab,cat.id,it,i,di)).join('');
+    html+=`<div class="cat" id="${cat.id}">
+      <div class="cat-hd" onclick="toggleCat(this)">
+        <span class="cat-icon">${cat.icon}</span>
+        <span class="cat-nm">${cat.name}</span>
+        <span class="cat-cnt">${cat.items.length}개</span>
+        <span class="chev">▼</span>
+      </div>
+      <div class="cat-bd" style="max-height:9999px">
+        <table>
+          <thead><tr>
+            <th class="th-num">#</th>
+            <th class="th-key">단축키</th>
+            <th class="th-desc">설명</th>
+            <th class="th-act"></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  });
+  container.innerHTML=html;
+  qj.innerHTML=qjHtml;
+}
+
+function toggleCat(hd){
+  const wrap=hd.parentElement;
+  const bd=wrap.querySelector('.cat-bd');
+  if(wrap.classList.contains('collapsed')){
+    wrap.classList.remove('collapsed');
+    bd.style.maxHeight=bd.scrollHeight+'px';
+    setTimeout(()=>bd.style.maxHeight='9999px',280);
+  } else {
+    bd.style.maxHeight=bd.scrollHeight+'px';
+    requestAnimationFrame(()=>{wrap.classList.add('collapsed');bd.style.maxHeight='0';});
+  }
+}
+
+function toggleMaster(tab,catId,idx,btn){
+  const s=getState(tab,catId,idx);
+  setState(tab,catId,idx,{mastered:!s.mastered});
+  const tr=btn.closest('tr');
+  if(!s.mastered){
+    btn.classList.add('done');
+    tr.classList.add('mastered-row');
+    btn.title='숙지완료 (해제하려면 클릭)';
+    // move row to bottom of tbody
+    const tbody=tr.parentElement;
+    tbody.appendChild(tr);
+    // renumber
+    renumberTbody(tbody);
+    toast('숙지완료 처리됐습니다 ✓');
+  } else {
+    btn.classList.remove('done');
+    tr.classList.remove('mastered-row');
+    btn.title='숙지 완료';
+    // move to top (before first mastered row)
+    const tbody=tr.parentElement;
+    const firstMastered=tbody.querySelector('.mastered-row');
+    if(firstMastered && firstMastered!==tr) tbody.insertBefore(tr,firstMastered);
+    else tbody.insertBefore(tr,tbody.firstChild);
+    renumberTbody(tbody);
+    toast('숙지완료 해제됐습니다');
+  }
+}
+
+function renumberTbody(tbody){
+  Array.from(tbody.querySelectorAll('tr')).forEach((tr,i)=>{
+    const td=tr.querySelector('.td-num');
+    if(td)td.textContent=i+1;
+  });
+}
+
+function toggleFav(tab,catId,idx,btn){
+  const s=getState(tab,catId,idx);
+  const nowFav=!s.fav;
+  setState(tab,catId,idx,{fav:nowFav});
+  if(nowFav){btn.classList.add('starred');toast('즐겨찾기에 추가됐습니다 ⭐');}
+  else{btn.classList.remove('starred');toast('즐겨찾기에서 제거됐습니다');}
+  renderFavs();
+}
+
+// ═══════════════════ FAVORITES ═══════════════════
+const TAB_NAMES={win:'윈도우',xl:'엑셀',hwp:'한글HWP',gs:'구글시트'};
+
+function renderFavs(){
+  const list=document.getElementById('favList');
+  const favs=[];
+  Object.keys(states).forEach(k=>{
+    if(!states[k].fav)return;
+    const [tab,catId,idx]=k.split('__');
+    const idxN=parseInt(idx);
+    const cat=DATA[tab]&&DATA[tab].find(c=>c.id===catId);
+    if(!cat||!cat.items[idxN])return;
+    const it=cat.items[idxN];
+    favs.push({tab,catId,cat,idx:idxN,it,k});
+  });
+  if(!favs.length){
+    list.innerHTML='<div class="empty">즐겨찾기한 단축키가 없습니다.<br><small style="color:var(--text3)">각 탭에서 ★ 버튼으로 추가하세요</small></div>';
+    return;
+  }
+  list.innerHTML=favs.map(({tab,cat,idx,it,k})=>`
+    <div class="fav-item" style="margin-bottom:7px">
+      <span class="fav-star">⭐</span>
+      <div class="fav-body">
+        <div class="fav-key">${esc(it.k)}</div>
+        <div class="fav-desc">${esc(it.d).replace(/\n/g,' | ')}</div>
+        <div class="fav-src">${TAB_NAMES[tab]||tab} · ${cat.name}</div>
+      </div>
+      <button class="fav-unfav" title="즐겨찾기 해제" onclick="unfavFromMemo('${tab}','${cat.id}',${idx})">✕</button>
+    </div>
+  `).join('');
+}
+
+function unfavFromMemo(tab,catId,idx){
+  setState(tab,catId,idx,{fav:false});
+  // update btn in table if rendered
+  const btn=document.querySelector(`tr[data-tab="${tab}"][data-cat="${catId}"][data-idx="${idx}"] .btn-fav`);
+  if(btn)btn.classList.remove('starred');
+  renderFavs();
+  toast('즐겨찾기 해제됐습니다');
+}
+
+// ═══════════════════ TABS ═══════════════════
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const tab=btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+tab).classList.add('active');
+  });
+});
+
+// ═══════════════════ SEARCH ═══════════════════
+document.getElementById('gSearch').addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  document.querySelectorAll('[data-search]').forEach(row=>{
+    const show=!q||row.dataset.search.includes(q);
+    row.style.display=show?'':'none';
+    if(show&&q){
+      row.querySelectorAll('.td-key,.td-desc').forEach(td=>{
+        td.innerHTML=td.innerHTML.replace(/<mark class="hl">([^<]*)<\/mark>/g,'$1');
+        const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+        td.innerHTML=td.innerHTML.replace(re,'<mark class="hl">$1</mark>');
+      });
+    }
+  });
+  if(!q)document.querySelectorAll('.hl').forEach(m=>{m.replaceWith(document.createTextNode(m.textContent));});
+});
+
+// ═══════════════════ SUB-NOTE ═══════════════════
+let snFilter='pending';
+let subnotes=JSON.parse(localStorage.getItem('subnotes')||'[]');
+function saveSN(){localStorage.setItem('subnotes',JSON.stringify(subnotes));}
+
+function addSN(){
+  const t=document.getElementById('snText').value.trim();
+  if(!t)return;
+  const yt=document.getElementById('snYt').value.trim();
+  subnotes.unshift({id:Date.now(),t,yt,done:false,date:new Date().toLocaleDateString('ko-KR')});
+  saveSN();document.getElementById('snText').value='';document.getElementById('snYt').value='';
+  renderSN();toast('서브노트에 추가했습니다 ✓');
+}
+function toggleSN(id){
+  const s=subnotes.find(x=>x.id===id);if(s){s.done=!s.done;saveSN();renderSN();}
+}
+function delSN(id){
+  subnotes=subnotes.filter(x=>x.id!==id);saveSN();renderSN();
+}
+function setSNF(f,btn){
+  snFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderSN();
+}
+function getYtId(url){
+  const m=url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&\n?#]+)/);
+  return m?m[1]:null;
+}
+function renderSN(){
+  const el=document.getElementById('snList');
+  const tot=subnotes.length,done=subnotes.filter(x=>x.done).length;
+  document.getElementById('snStats').textContent=`전체 ${tot} · 완료 ${done} · 미숙지 ${tot-done}`;
+  let arr=subnotes;
+  if(snFilter==='pending')arr=subnotes.filter(x=>!x.done);
+  if(snFilter==='done')arr=subnotes.filter(x=>x.done);
+  if(!arr.length){el.innerHTML=`<div class="empty">${snFilter==='pending'?'미숙지 항목 없음 — 모두 완료!':snFilter==='done'?'숙지완료 항목 없음':'서브노트가 비어있습니다'}</div>`;return;}
+  el.innerHTML=arr.map(s=>`<div class="sni${s.done?' done':''}">
+    <div class="sni-chk${s.done?' done':''}" onclick="toggleSN(${s.id})">${s.done?'✓':''}</div>
+    <div class="sni-body">
+      <div class="sni-text">${esc(s.t)}</div>
+      ${s.yt?`<a class="sni-yt" href="${esc(s.yt)}" target="_blank" rel="noopener">▶ 유튜브 영상 보기</a>`:''}
+      <div class="sni-date">${s.date||''}</div>
+    </div>
+    <button class="sni-del" onclick="delSN(${s.id})">✕</button>
+  </div>`).join('');
+}
+
+// ═══════════════════ MEMO / YT ═══════════════════
+let ytLinks=JSON.parse(localStorage.getItem('ytLinks')||'[]');
+function saveMemo(){localStorage.setItem('memo',document.getElementById('memoTA').value);}
+function saveYT(){localStorage.setItem('ytLinks',JSON.stringify(ytLinks));}
+
+function addYT(){
+  const url=document.getElementById('ytUrl').value.trim();if(!url)return;
+  const title=document.getElementById('ytTitle').value.trim()||url;
+  const id=getYtId(url);
+  ytLinks.unshift({id:Date.now(),url,title,thumb:id?`https://img.youtube.com/vi/${id}/mqdefault.jpg`:''});
+  saveYT();document.getElementById('ytUrl').value='';document.getElementById('ytTitle').value='';
+  renderYT();toast('링크를 추가했습니다 ▶');
+}
+function delYT(id){ytLinks=ytLinks.filter(l=>l.id!==id);saveYT();renderYT();}
+function renderYT(){
+  const el=document.getElementById('ytList');
+  if(!ytLinks.length){el.innerHTML='<div style="font-size:12px;color:var(--text3);padding:10px 0">저장된 링크가 없습니다.</div>';return;}
+  el.innerHTML=ytLinks.map(l=>`<div class="yt-item">
+    ${l.thumb?`<img class="yt-thumb" src="${l.thumb}" alt="">`:
+      '<div class="yt-thumb" style="background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#dc2626;font-size:16px">▶</div>'}
+    <div class="yt-info"><div class="yt-name">${esc(l.title)}</div><div class="yt-link">${esc(l.url)}</div></div>
+    <a class="yt-open" href="${esc(l.url)}" target="_blank" rel="noopener">열기 →</a>
+    <button class="yt-del" onclick="delYT(${l.id})">✕</button>
+  </div>`).join('');
+}
+
+// ═══════════════════ TOAST ═══════════════════
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2000);
+}
+
+// ═══════════════════ ENTER KEYS ═══════════════════
+document.getElementById('snText').addEventListener('keydown',e=>{if(e.key==='Enter')addSN();});
+document.getElementById('ytUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addYT();});
+
+// ═══════════════════ INIT ═══════════════════
+['win','xl','hwp','gs'].forEach(renderCats);
+document.getElementById('memoTA').value=localStorage.getItem('memo')||'';
+renderSN();
+renderYT();
+renderFavs();
+</script>
+</body>
+</html>
